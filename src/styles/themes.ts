@@ -73,8 +73,8 @@ const DarkThemeBase: () => ThemeColorBase = () => ({
   tooltipBackground: ColorToken.DarkGray6,
 
   hoverFilterBase: BrightnessFilterToken.Lighten10,
-  hoverFilterVariant: BrightnessFilterToken.Lighten10,
-  activeFilter: BrightnessFilterToken.Darken10,
+  hoverFilterVariant: BrightnessFilterToken.Darken10,
+  activeFilter: BrightnessFilterToken.Darken5,
   overlayFilter: BrightnessFilterToken.Darken50,
 });
 
@@ -147,8 +147,8 @@ const LightThemeBase: () => ThemeColorBase = () => ({
 
   hoverFilterBase: BrightnessFilterToken.Darken5,
   hoverFilterVariant: BrightnessFilterToken.Lighten10,
-  activeFilter: BrightnessFilterToken.Darken10,
-  overlayFilter: BrightnessFilterToken.Darken10,
+  activeFilter: BrightnessFilterToken.Darken5,
+  overlayFilter: BrightnessFilterToken.Darken50,
 });
 
 const generateTheme = (themeBase: () => ThemeColorBase): Theme => {
