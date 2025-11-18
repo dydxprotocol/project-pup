@@ -95,7 +95,7 @@ const buttonActionVariants = {
     [ButtonStyle.Default]: css`
       --button-textColor: var(--color-text-1);
       --button-backgroundColor: var(--color-layer-5);
-      --button-border: solid var(--border-width) var(--color-border);
+      --button-border: none;
     `,
     [ButtonStyle.WithoutBackground]: css`
       --button-textColor: var(--color-text-1);
@@ -153,7 +153,7 @@ const buttonActionVariants = {
     [ButtonStyle.Default]: css`
       --button-textColor: var(--color-text-1);
       --button-backgroundColor: var(--color-layer-3);
-      --button-border: solid var(--border-width) var(--color-border);
+      --button-border: none;
     `,
     [ButtonStyle.WithoutBackground]: css`
       --button-textColor: var(--color-text-0);
