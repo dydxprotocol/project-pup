@@ -2,8 +2,8 @@ import Logo from '@/icons/logos/logo.png';
 
 export const LogoShortIcon: React.FC<{ id?: string; width?: number; height?: number }> = ({
   id,
-  width = 1792,
-  height = 2043,
+  width = 179,
+  height = 204,
 }: {
   id?: string;
   width?: number;
