@@ -8,7 +8,7 @@ import { generateFadedColorVariant } from '@/lib/styles';
 const DarkThemeBase: () => ThemeColorBase = () => ({
   black: ColorToken.Black,
   white: ColorToken.White,
-  green: ColorToken.Green1, // maybe green3
+  green: ColorToken.Green1,
   red: ColorToken.Red0,
 
   whiteFaded: generateFadedColorVariant(ColorToken.White, OpacityToken.Opacity16),

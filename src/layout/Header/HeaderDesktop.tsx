@@ -73,6 +73,11 @@ export const HeaderDesktop = () => {
           href: AppRoute.Portfolio,
         },
         {
+          value: 'VAULT',
+          label: stringGetter({ key: STRING_KEYS.MEGAVAULT }),
+          href: AppRoute.Vault,
+        },
+        {
           value: 'REWARDS',
           label: stringGetter({ key: STRING_KEYS.REWARDS }),
           href: AppRoute.Rewards,
