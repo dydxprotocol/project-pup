@@ -4,6 +4,7 @@ import { TradeFormType } from '@/bonsai/forms/trade/types';
 import styled from 'styled-components';
 
 import { OnboardingState } from '@/constants/account';
+import { ColorToken } from '@/constants/styles/base';
 
 import { layoutMixins } from '@/styles/layoutMixins';
 
@@ -74,13 +75,30 @@ const $OrderTypeTabs = styled(Tabs)`
   --trigger-backgroundColor: var(--color-layer-1);
   --tabs-height: 2.625rem;
   --trigger-active-backgroundColor: var(--trigger-backgroundColor);
+  --trigger-active-underlineColor: ${ColorToken.Orange0};
+  --trigger-active-textColor: ${ColorToken.Orange0};
+  --trigger-active-underline-size: 2px;
+  --trigger-underline-size: 0px;
+  --trigger-active-underline-backgroundColor: transparent;
   background-color: var(--color-layer-1);
 
-  > * > header > div {
+  /* Target the list container - use high specificity to override parent styles */
+  > div > header > ul[role="tablist"] {
     width: 100%;
-    > button {
+    
+    > button[role="tab"] {
       width: 33%;
       padding: 0;
+
+      &[data-state='active'] {
+        box-shadow: inset 0 -2px 0 ${ColorToken.Orange0} !important;
+        color: ${ColorToken.Orange0} !important;
+      }
     }
+  }
+
+  /* Ensure underline shows - override any inherited box-shadow: none */
+  button[role="tab"][data-state='active'] {
+    box-shadow: inset 0 -2px 0 ${ColorToken.Orange0} !important;
   }
 ` as typeof Tabs;

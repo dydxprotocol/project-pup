@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { OrderSide } from '@dydxprotocol/v4-client-js';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { OnboardingState } from '@/constants/account';
 import { STRING_KEYS } from '@/constants/localization';
+import { ColorToken } from '@/constants/styles/base';
 
 import { useStringGetter } from '@/hooks/useStringGetter';
 
@@ -43,7 +44,7 @@ export const TradeSideTabs = ({ sharedContent, className }: ElementProps & Style
     <$TradeSideTabs
       className={className}
       fullWidthTabs
-      dividerStyle="underline"
+      dividerStyle="none"
       activeTab={side}
       value={side}
       items={items}
@@ -62,20 +63,58 @@ const $TradeSideTabs = styled(Tabs)<{ activeTab: OrderSide }>`
   border-top-right-radius: 0.75rem;
   border-top-left-radius: 0.75rem;
   --tabs-height: 2.625rem;
-  overflow: hidden;
+  overflow: visible;
+  padding: 0.5rem;
+  gap: 0.5rem;
 
-  ${({ activeTab }) =>
-    activeTab === OrderSide.BUY
-      ? css`
-          --trigger-active-underline-backgroundColor: var(--color-positive-dark);
-          --trigger-active-underlineColor: var(--color-positive);
-          --trigger-active-textColor: var(--color-positive);
-          --trigger-hover-textColor: var(--color-text-2);
-        `
-      : css`
-          --trigger-active-underline-backgroundColor: var(--color-negative-dark);
-          --trigger-active-underlineColor: var(--color-negative);
-          --trigger-active-textColor: var(--color-negative);
-          --trigger-hover-textColor: var(--color-text-2);
-        `};
+  /* Base styles for all tabs */
+  --trigger-backgroundColor: #12121280; /* #121212 at 50% opacity */
+  --trigger-textColor: var(--color-text-2);
+  --trigger-active-backgroundColor: ${ColorToken.Orange0};
+  --trigger-active-textColor: ${ColorToken.White};
+  --trigger-hover-textColor: var(--color-text-0);
+  --trigger-hover-backgroundColor: #12121280;
+  --trigger-active-underline-size: 0px;
+  --trigger-underline-size: 0px;
+  --trigger-border-radius: 9999px; /* Pill shape */
+
+  /* Remove underline styles */
+  --trigger-active-underline-backgroundColor: transparent;
+  --trigger-active-underlineColor: transparent;
+
+  /* Style the tab list container */
+  > div > header {
+    gap: 0.5rem;
+    padding: 0;
+  }
+
+  /* Style the list container */
+  > div > header > ul[role="tablist"] {
+    gap: 0.5rem;
+  }
+
+  /* Style individual tab triggers as pills - target buttons in header of first div only */
+  /* Use multiple selector patterns to ensure we match */
+  > div:first-child header button[role="tab"],
+  > div:first-child > header button[role="tab"],
+  header:first-of-type button[role="tab"] {
+    border-radius: 9999px !important; /* Fully rounded for pill shape */
+    background-color: var(--trigger-backgroundColor) !important;
+    color: var(--trigger-textColor) !important;
+    opacity: 0.5 !important; /* 50% opacity for unselected tabs */
+    transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease !important;
+    box-shadow: none !important; /* Remove any underline box-shadow */
+
+    &[data-state='active'] {
+      background-color: var(--trigger-active-backgroundColor) !important;
+      color: var(--trigger-active-textColor) !important;
+      opacity: 1 !important; /* Full opacity for selected tab */
+    }
+
+    &:hover:not([data-state='active']) {
+      background-color: var(--trigger-hover-backgroundColor) !important;
+      color: var(--trigger-hover-textColor) !important;
+      opacity: 0.5 !important; /* Keep 50% opacity on hover for unselected */
+    }
+  }
 ` as typeof tradeSideTabsType;
