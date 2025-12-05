@@ -43,6 +43,7 @@ import { config, privyConfig } from '@/lib/wagmi';
 
 import { BonsaiCore } from './bonsai/ontology';
 import { ComplianceBanner } from './components/ComplianceBanner';
+import GlobalBackground from './components/GlobalBackground';
 import { RestrictionWarning } from './components/RestrictionWarning';
 import { DialogTypes } from './constants/dialogs';
 import { LocalStorageKey } from './constants/localStorage';
@@ -133,6 +134,7 @@ const Content = () => {
             backgroundColor,
           }}
         >
+          <GlobalBackground />
           <ComplianceBanner tw="h-fit min-h-0" />
 
           <$SimpleUiMain>
@@ -186,6 +188,7 @@ const Content = () => {
         isShowingFooter={isShowingFooter}
         showRestrictionWarning={showComplianceBanner}
       >
+        <GlobalBackground />
         {isShowingHeader && <HeaderDesktop />}
         <RestrictionWarning />
         <$Main>
@@ -384,6 +387,8 @@ const $Content = styled.div<{
     ${layoutMixins.scrollArea}
     --scrollArea-height: 100vh;
 
+    position: relative;
+
   @supports (-webkit-touch-callout: none) {
     height: -webkit-fill-available;
   }
@@ -420,6 +425,7 @@ const $Main = styled.main`
   isolation: isolate;
 
   position: relative;
+  z-index: 1;
 
   padding-left: 1rem;
   padding-right: 1rem;
@@ -430,6 +436,7 @@ const $SimpleUiContainer = styled.div<{ showRestrictionBanner?: boolean }>`
   flex-direction: column;
   overflow: hidden;
   height: 100%;
+  position: relative;
 `;
 
 const $SimpleUiMain = styled.main`
@@ -437,6 +444,7 @@ const $SimpleUiMain = styled.main`
   position: relative;
   min-height: 0;
   flex: 1;
+  z-index: 1;
 `;
 
 const $DialogArea = styled.aside`

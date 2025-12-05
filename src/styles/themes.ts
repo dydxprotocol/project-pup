@@ -13,14 +13,14 @@ const DarkThemeBase: () => ThemeColorBase = () => ({
 
   whiteFaded: generateFadedColorVariant(ColorToken.White, OpacityToken.Opacity16),
 
-  layer0: ColorToken.DarkGray15,
-  layer1: ColorToken.DarkGray14,
-  layer2: ColorToken.DarkGray11,
-  layer3: ColorToken.DarkGray9,
-  layer4: ColorToken.DarkGray6,
-  layer5: ColorToken.DarkGray5,
-  layer6: ColorToken.DarkGray4,
-  layer7: ColorToken.DarkGray2,
+  layer0: ColorToken.BONKPurple,
+  layer1: ColorToken.BONKPurple,
+  layer2: ColorToken.BONKPurple,
+  layer3: ColorToken.BONKPurple,
+  layer4: ColorToken.BONKPurple,
+  layer5: ColorToken.BONKPurple,
+  layer6: ColorToken.BONKPurple,
+  layer7: ColorToken.BONKPurple,
 
   borderDefault: ColorToken.DarkGray15,
   borderFaded: generateFadedColorVariant(ColorToken.DarkGray14, OpacityToken.Opacity50),
