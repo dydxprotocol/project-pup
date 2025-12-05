@@ -194,7 +194,7 @@ export const HeaderDesktop = () => {
 const $Header = styled.header`
   --header-horizontal-padding-mobile: 0.5rem;
   --trigger-height: 2.25rem;
-  --logo-width: 3.5rem;
+  --logo-width: 12rem;
 
   ${layoutMixins.container}
   ${layoutMixins.stickyHeader}

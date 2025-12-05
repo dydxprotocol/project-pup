@@ -12,7 +12,7 @@ export const LogoShortIcon: React.FC<{ id?: string; width?: number; height?: num
   return (
     <div
       id={id}
-      className="ml-1 flex aspect-square h-auto w-full flex-row items-start justify-center overflow-hidden object-center"
+      className="ml-1 flex h-auto w-full flex-row items-start justify-center overflow-hidden object-center"
     >
       <img
         src={Logo}
