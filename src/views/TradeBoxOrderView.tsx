@@ -16,7 +16,6 @@ import { tradeFormActions } from '@/state/tradeForm';
 
 import { TradeSideTabs } from './TradeSideTabs';
 import { TradeForm } from './forms/TradeForm';
-import { MarginAndLeverageButtons } from './forms/TradeForm/MarginAndLeverageButtons';
 import { useTradeTypeOptions } from './forms/TradeForm/useTradeTypeOptions';
 
 export const TradeBoxOrderView = () => {
@@ -38,7 +37,6 @@ export const TradeBoxOrderView = () => {
 
   return (
     <div tw="flex flex-col gap-0">
-      <$MarginAndLeverageButtons />
       <TradeSideTabs
         sharedContent={
           <div tw="flex min-h-full flex-col">
@@ -64,11 +62,6 @@ export const TradeBoxOrderView = () => {
 const $Container = styled.div`
   ${layoutMixins.scrollArea}
   background-color: var(--color-layer-1);
-`;
-
-const $MarginAndLeverageButtons = styled(MarginAndLeverageButtons)`
-  padding: 0.25rem 1rem;
-  box-shadow: inset 0 calc(-1 * var(--border-width)) var(--border-color);
 `;
 
 const $OrderTypeTabs = styled(Tabs)`

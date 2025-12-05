@@ -10,6 +10,7 @@ import { ColorToken } from '@/constants/styles/base';
 import { useStringGetter } from '@/hooks/useStringGetter';
 
 import { Tabs } from '@/components/Tabs';
+import { MarginModeSelector } from '@/views/forms/TradeForm/MarginModeSelector';
 
 import { getOnboardingState } from '@/state/accountSelectors';
 import { useAppDispatch, useAppSelector } from '@/state/appTypes';
@@ -41,30 +42,48 @@ export const TradeSideTabs = ({ sharedContent, className }: ElementProps & Style
   ];
 
   return (
-    <$TradeSideTabs
-      className={className}
-      fullWidthTabs
-      dividerStyle="none"
-      activeTab={side}
-      value={side}
-      items={items}
-      onValueChange={(newSide: OrderSide) => {
-        dispatch(tradeFormActions.setSide(newSide));
-      }}
-      disabled={!allowChangingOrderType}
-      sharedContent={sharedContent}
-    />
+    <$Container className={className}>
+      <$HeaderSection>
+        <MarginModeSelector />
+        <$TradeSideTabs
+          fullWidthTabs
+          dividerStyle="none"
+          activeTab={side}
+          value={side}
+          items={items}
+          onValueChange={(newSide: OrderSide) => {
+            dispatch(tradeFormActions.setSide(newSide));
+          }}
+          disabled={!allowChangingOrderType}
+          sharedContent={sharedContent}
+        />
+      </$HeaderSection>
+    </$Container>
   );
 };
 
 const tradeSideTabsType = getSimpleStyledOutputType(Tabs, {} as { activeTab: OrderSide });
 
-const $TradeSideTabs = styled(Tabs)<{ activeTab: OrderSide }>`
+const $Container = styled.div`
   border-top-right-radius: 0.75rem;
   border-top-left-radius: 0.75rem;
+  overflow: visible;
+`;
+
+const $HeaderSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background-color: var(--color-layer-1);
+  border-top-right-radius: 0.75rem;
+  border-top-left-radius: 0.75rem;
+`;
+
+const $TradeSideTabs = styled(Tabs)<{ activeTab: OrderSide }>`
   --tabs-height: 2.625rem;
   overflow: visible;
-  padding: 0.5rem;
+  padding: 0;
   gap: 0.5rem;
 
   /* Base styles for all tabs */
@@ -86,6 +105,7 @@ const $TradeSideTabs = styled(Tabs)<{ activeTab: OrderSide }>`
   > div > header {
     gap: 0.5rem;
     padding: 0;
+    background-color: transparent;
   }
 
   /* Style the list container */
