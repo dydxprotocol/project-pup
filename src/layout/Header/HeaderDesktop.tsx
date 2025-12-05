@@ -147,18 +147,18 @@ export const HeaderDesktop = () => {
       <$NavAfter>
         {onboardingState === OnboardingState.AccountConnected &&
           complianceState === ComplianceStates.FULL_ACCESS && (
-            <Button
+            <$DepositButton
               tw="mr-[0.5em]"
-              shape={ButtonShape.Rectangle}
+              shape={ButtonShape.Pill}
               size={ButtonSize.XSmall}
-              action={ButtonAction.AccentFaded}
+              action={ButtonAction.SimplePrimary}
               onClick={() => {
                 dispatch(openDialog(DialogTypes.Deposit2({})));
               }}
               state={{ isDisabled: !dydxAccounts }}
             >
               <span tw="font-small-bold">{stringGetter({ key: STRING_KEYS.DEPOSIT })}</span>
-            </Button>
+            </$DepositButton>
           )}
 
         {onboardingState === OnboardingState.AccountConnected ? (
@@ -285,4 +285,13 @@ const $IconButton = styled(IconButton)<{ size?: string }>`
 const $LanguageSelector = styled(LanguageSelector)`
   ${headerMixins.dropdownTrigger}
   --trigger-padding: 0.33rem 0.5rem;
+`;
+
+const $DepositButton = styled(Button)`
+  --button-textColor: var(--color-white) !important;
+  --button-padding: 0.5rem 1.5rem;
+  
+  span {
+    color: var(--color-white) !important;
+  }
 `;
