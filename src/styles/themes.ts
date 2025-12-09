@@ -13,7 +13,7 @@ const DarkThemeBase: () => ThemeColorBase = () => ({
 
   whiteFaded: generateFadedColorVariant(ColorToken.White, OpacityToken.Opacity16),
 
-  layer0: ColorToken.BONKPurple,
+  layer0: ColorToken.BONKPurple1,
   layer1: ColorToken.BONKPurple,
   layer2: ColorToken.BONKPurple,
   layer3: ColorToken.BONKPurple,
@@ -22,7 +22,7 @@ const DarkThemeBase: () => ThemeColorBase = () => ({
   layer6: ColorToken.BONKPurple,
   layer7: ColorToken.BONKPurple,
 
-  borderDefault: ColorToken.DarkGray15,
+  borderDefault: 'transparent',
   borderFaded: generateFadedColorVariant(ColorToken.DarkGray14, OpacityToken.Opacity50),
   borderDestructive: generateFadedColorVariant(ColorToken.Red2, OpacityToken.Opacity20),
   borderButton: generateFadedColorVariant(ColorToken.White, OpacityToken.Opacity20), // maybe accent orange?
