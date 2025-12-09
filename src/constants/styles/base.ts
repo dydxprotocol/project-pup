@@ -37,6 +37,7 @@ export enum ColorToken {
 
   BONKPurple = '#1D0623',
   BONKPurple1 = '#17001C',
+  BONKPurple2 = '#836EF9',
 
   GrayBlue0 = '#464659',
   GrayBlue1 = '#38384D',

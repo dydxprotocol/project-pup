@@ -1,10 +1,28 @@
+import { ColorToken } from '@/constants/styles/base';
+import { useCurrentAppThemeSetting } from '@/hooks/useAppThemeAndColorMode';
+import { AppTheme } from '@/state/appUiConfigs';
+
 export default function GlobalBackground() {
+  const currentTheme = useCurrentAppThemeSetting();
+  const isDark = currentTheme === AppTheme.Dark;
+  
+  // Use BONKPurple2 for dark mode, Orange0 for light mode
+  const gradientColor = isDark ? ColorToken.BONKPurple2 : ColorToken.Orange0;
+  
+  // Convert hex to rgba
+  const hex = gradientColor.replace('#', '');
+  const r = parseInt(hex.slice(0, 2), 16);
+  const g = parseInt(hex.slice(2, 4), 16);
+  const b = parseInt(hex.slice(4, 6), 16);
+  
+  const gradient = `linear-gradient(to bottom, rgba(${r}, ${g}, ${b}, 0), rgba(${r}, ${g}, ${b}, 1), rgba(${r}, ${g}, ${b}, 0))`;
+
   return (
     <div
-      className="pointer-events-none fixed inset-x-0 h-[36rem] z-0"
+      className="pointer-events-none fixed left-0 right-0 w-full h-[36rem] z-0"
       style={{
         top: '5rem',
-        background: 'linear-gradient(to bottom, rgba(77, 65, 147, 0), rgba(131, 110, 249, 1), rgba(77, 65, 147, 0))',
+        background: gradient,
       }}
     />
   );
