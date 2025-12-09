@@ -36,10 +36,10 @@ export const TradeBoxOrderView = () => {
   const allowChangingOrderType = onboardingState === OnboardingState.AccountConnected;
 
   return (
-    <div tw="flex flex-col gap-0">
+    <div tw="flex h-full flex-col gap-0">
       <TradeSideTabs
         sharedContent={
-          <div tw="flex min-h-full flex-col">
+          <div tw="flex flex-1 flex-col min-h-0">
             <$OrderTypeTabs
               value={selectedTradeType}
               items={tradeTypeItems}
@@ -74,6 +74,8 @@ const $OrderTypeTabs = styled(Tabs)`
   --trigger-underline-size: 0px;
   --trigger-active-underline-backgroundColor: transparent;
   background-color: var(--color-layer-1);
+  flex: 1;
+  min-height: 0;
 
   /* Target the list container - use high specificity to override parent styles */
   > div > header > ul[role="tablist"] {

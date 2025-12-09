@@ -68,6 +68,9 @@ const $Container = styled.div`
   border-top-right-radius: 0.75rem;
   border-top-left-radius: 0.75rem;
   overflow: visible;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const $HeaderSection = styled.div`
@@ -78,6 +81,8 @@ const $HeaderSection = styled.div`
   background-color: var(--color-layer-1);
   border-top-right-radius: 0.75rem;
   border-top-left-radius: 0.75rem;
+  flex: 1;
+  min-height: 0;
 `;
 
 const $TradeSideTabs = styled(Tabs)<{ activeTab: OrderSide }>`
