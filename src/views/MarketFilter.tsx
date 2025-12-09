@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components';
 import { STRING_KEYS } from '@/constants/localization';
 import { MARKET_FILTER_OPTIONS, MarketFilters } from '@/constants/markets';
 import { MenuItem } from '@/constants/menus';
+import { ColorToken } from '@/constants/styles/base';
 
 import { useStringGetter } from '@/hooks/useStringGetter';
 
@@ -129,8 +130,18 @@ const $MarketFilter = styled.div<{ $compactLayout: boolean }>`
   overflow: hidden;
 
   button {
-    --button-toggle-off-border: 1px solid var(--color-layer-6);
-    --button-toggle-off-backgroundColor: transparent;
+    --button-toggle-on-border: none;
+    --button-toggle-on-backgroundColor: ${({ theme }) =>
+      theme.layer0 === ColorToken.BONKPurple1 ? ColorToken.Purple0 : ColorToken.Orange0};
+    --button-toggle-on-textColor: ${ColorToken.White};
+    --button-toggle-off-border: ${({ theme }) =>
+      theme.layer0 === ColorToken.BONKPurple1
+        ? `1px solid ${ColorToken.MediumGray0}`
+        : '1px solid var(--color-layer-6)'};
+    --button-toggle-off-backgroundColor: ${({ theme }) =>
+      theme.layer0 === ColorToken.BONKPurple1 ? 'transparent' : ColorToken.White};
+    --button-toggle-off-textColor: ${({ theme }) =>
+      theme.layer0 === ColorToken.BONKPurple1 ? ColorToken.White : ColorToken.Orange0};
   }
 
   ${({ $compactLayout }) =>
