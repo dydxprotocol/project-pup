@@ -183,11 +183,12 @@ const Content = () => {
   return (
     <>
       <GlobalStyle />
-      <$Content
-        isShowingHeader={isShowingHeader}
-        isShowingFooter={isShowingFooter}
-        showRestrictionWarning={showComplianceBanner}
-      >
+      <$AppContainer>
+        <$Content
+          isShowingHeader={isShowingHeader}
+          isShowingFooter={isShowingFooter}
+          showRestrictionWarning={showComplianceBanner}
+        >
         <GlobalBackground />
         {isShowingHeader && <HeaderDesktop />}
         <RestrictionWarning />
@@ -249,6 +250,7 @@ const Content = () => {
           <DialogManager />
         </$DialogArea>
       </$Content>
+      </$AppContainer>
     </>
   );
 };
@@ -341,6 +343,13 @@ function shouldForwardProp(propName: string, target: WebTarget): boolean {
   return true;
 }
 
+const $AppContainer = styled.div`
+  width: 100%;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
 const $Content = styled.div<{
   isShowingHeader: boolean;
   isShowingFooter: boolean;
@@ -404,7 +413,7 @@ const $Content = styled.div<{
 
   ${({ showRestrictionWarning, isShowingHeader }) => css`
     grid-template:
-      ${isShowingHeader ? css`'Header' var(--page-currentHeaderHeight)` : ''}
+      ${isShowingHeader ? css`'Header' calc(var(--page-currentHeaderHeight) + 2rem)` : ''}
       ${showRestrictionWarning
         ? css`'RestrictionWarning' var(--restriction-warning-currentHeight)`
         : ''}

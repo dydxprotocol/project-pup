@@ -197,11 +197,13 @@ const $Header = styled.header`
   --logo-width: 12rem;
 
   ${layoutMixins.container}
-  ${layoutMixins.stickyHeader}
-  ${layoutMixins.scrollSnapItem}
   backdrop-filter: none;
   background-color: var(--color-layer-0);
   height: var(--page-currentHeaderHeight);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
 
   grid-area: Header;
 
@@ -232,8 +234,8 @@ const $NavigationScrollBar = styled.div`
 
 const $NavigationMenu = styled(NavigationMenu)`
   & {
-    --navigationMenu-height: var(--stickyArea-topHeight);
-    --navigationMenu-item-height: var(--stickyArea-topHeight);
+    --navigationMenu-height: var(--page-header-height);
+    --navigationMenu-item-height: var(--page-header-height);
   }
 
   ${layoutMixins.scrollArea}
