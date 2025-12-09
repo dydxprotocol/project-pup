@@ -20,32 +20,38 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
+      - name: Get last synced upstream version
+        id: local_version
+        run: |
+          if [ -f .upstream-version ]; then
+            VERSION=$(cat .upstream-version)
+          else
+            VERSION="none"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Last synced version: $VERSION"
+
+      #######################################################################
+      # Detect new upstream release
+      #######################################################################
       - name: Add upstream remote
         run: git remote add upstream https://github.com/dydxprotocol/v4-web.git
 
       - name: Fetch upstream
         run: git fetch upstream --tags
 
-      #######################################################################
-      # Detect new upstream release
-      #######################################################################
-
       - name: Get latest upstream release tag
         id: upstream_tag
         run: |
-          TAG=$(git ls-remote --tags upstream | grep -o 'refs/tags/.*' | sed 's|refs/tags/||' | sort -V | tail -n1)
+          TAG=$(git ls-remote --tags upstream | grep -v '\^{}' | grep -o 'refs/tags/.*' | sed 's|refs/tags/||' | sort -V | tail -n1)
           echo "tag=$TAG" >> $GITHUB_OUTPUT
 
-      - name: Get latest local release tag
-        id: local_tag
-        run: |
-          TAG=$(git tag --sort=version:refname | tail -n1)
-          echo "tag=${TAG:-none}" >> $GITHUB_OUTPUT
-
-      - name: Compare release tags
+      - name: Compare versions
         id: compare
         run: |
-          if [ "${{ steps.upstream_tag.outputs.tag }}" = "${{ steps.local_tag.outputs.tag }}" ]; then
+          echo "Upstream: ${{ steps.upstream_tag.outputs.tag }}"
+          echo "Local:    ${{ steps.local_version.outputs.version }}"
+          if [ "${{ steps.upstream_tag.outputs.tag }}" = "${{ steps.local_version.outputs.version }}" ]; then
             echo "no_update=true" >> $GITHUB_OUTPUT
           else
             echo "no_update=false" >> $GITHUB_OUTPUT
@@ -64,6 +70,13 @@ jobs:
           BRANCH="sync/upstream-$(date +'%Y-%m-%d')"
           echo "BRANCH=$BRANCH" >> $GITHUB_ENV
           git checkout -b $BRANCH
+
+      - name: Update .upstream-version file
+        if: steps.compare.outputs.no_update == 'false'
+        run: |
+          echo "${{ steps.upstream_tag.outputs.tag }}" > .upstream-version
+          git add .upstream-version
+          git commit -m "chore: update .upstream-version to ${{ steps.upstream_tag.outputs.tag }}"
 
       - name: Rebase main onto upstream/main
         if: steps.compare.outputs.no_update == 'false'
