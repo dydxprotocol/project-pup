@@ -417,7 +417,7 @@ const $Content = styled.div<{
 
   ${({ showRestrictionWarning, isShowingHeader }) => css`
     grid-template:
-      ${isShowingHeader ? css`'Header' calc(var(--page-currentHeaderHeight) + 2rem)` : ''}
+      ${isShowingHeader ? css`'Header' calc(var(--page-currentHeaderHeight) + 4rem)` : ''}
       ${showRestrictionWarning
         ? css`'RestrictionWarning' var(--restriction-warning-currentHeight)`
         : ''}
