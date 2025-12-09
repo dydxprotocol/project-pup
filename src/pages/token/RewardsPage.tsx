@@ -147,6 +147,8 @@ export default RewardsPage;
 const $Page = styled.div`
   ${layoutMixins.contentContainerPage}
   background-color: var(--color-layer-0);
+  border-radius: 1rem;
+  overflow: hidden;
 `;
 
 const $DetachedSection = tw(
