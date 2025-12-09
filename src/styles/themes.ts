@@ -13,6 +13,7 @@ const DarkThemeBase: () => ThemeColorBase = () => ({
 
   whiteFaded: generateFadedColorVariant(ColorToken.White, OpacityToken.Opacity16),
 
+  baseLayer: ColorToken.BONKPurple,
   layer0: ColorToken.BONKPurple1,
   layer1: ColorToken.BONKPurple,
   layer2: ColorToken.BONKPurple,
@@ -86,16 +87,17 @@ const LightThemeBase: () => ThemeColorBase = () => ({
 
   whiteFaded: generateFadedColorVariant(ColorToken.White, OpacityToken.Opacity16),
 
-  layer0: ColorToken.LightGray0,
-  layer1: ColorToken.LightGray1,
-  layer2: ColorToken.LightGray7,
-  layer3: ColorToken.LightGray3,
-  layer4: ColorToken.LightGray4,
-  layer5: ColorToken.LightGray5,
-  layer6: ColorToken.LightGray10,
-  layer7: ColorToken.LightGray2,
+  baseLayer: "#FF5A0220",
+  layer0: ColorToken.White,
+  layer1: ColorToken.White,
+  layer2: ColorToken.White,
+  layer3: ColorToken.White,
+  layer4: ColorToken.White,
+  layer5: ColorToken.White,
+  layer6: ColorToken.White,
+  layer7: ColorToken.White,
 
-  borderDefault: ColorToken.LightGray10,
+  borderDefault: 'transparent',
   borderFaded: generateFadedColorVariant(ColorToken.LightGray1, OpacityToken.Opacity50),
   borderDestructive: generateFadedColorVariant(ColorToken.Red1, OpacityToken.Opacity20),
   borderButton: generateFadedColorVariant(ColorToken.Black, OpacityToken.Opacity20),

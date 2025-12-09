@@ -123,7 +123,7 @@ const Content = () => {
   if (isSimpleUi) {
     const matchMarkets = matchPath(AppRoute.Markets, location.pathname);
     const backgroundColor =
-      matchMarkets && isSimpleUiUserMenuOpen ? 'var(--color-layer-0)' : 'transparent';
+      matchMarkets && isSimpleUiUserMenuOpen ? 'var(--color-base-layer)' : 'transparent';
 
     return (
       <>
@@ -403,10 +403,14 @@ const $Content = styled.div<{
   }
 
   ${layoutMixins.stickyArea0}
+  --stickyArea0-background: transparent;
+  --stickyArea-background: transparent;
   --stickyArea0-topHeight: var(--page-currentHeaderHeight);
   --stickyArea0-topGap: var(--border-width);
   --stickyArea0-bottomGap: var(--border-width);
   --stickyArea0-bottomHeight: var(--page-currentFooterHeight);
+  
+  background: transparent;
 
   ${layoutMixins.withOuterAndInnerBorders}
   display: grid;
