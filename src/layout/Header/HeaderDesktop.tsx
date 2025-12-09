@@ -200,7 +200,7 @@ const $Header = styled.header`
   backdrop-filter: none;
   background-color: var(--color-layer-0);
   border-radius: 0.75rem;
-  overflow: hidden;
+  overflow: visible;
   height: var(--page-currentHeaderHeight);
   margin-top: 2rem;
   margin-bottom: 2rem;
