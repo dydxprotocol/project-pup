@@ -442,6 +442,11 @@ const $Main = styled.main`
 
   padding-left: 1rem;
   padding-right: 1rem;
+  
+  /* Override min-width from contentSectionAttached to allow proper grid constraints */
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: hidden;
 `;
 
 const $SimpleUiContainer = styled.div<{ showRestrictionBanner?: boolean }>`
