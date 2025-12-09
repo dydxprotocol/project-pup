@@ -123,7 +123,6 @@ const VaultPage = () => {
 
 const $Page = styled.div`
   ${layoutMixins.contentContainerPage}
-  padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 `;
 

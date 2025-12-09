@@ -198,7 +198,7 @@ const $Header = styled.header`
 
   ${layoutMixins.container}
   backdrop-filter: none;
-  background-color: var(--color-layer-0);
+  background-color: 'transparent';
   border-radius: 0.75rem;
   overflow: visible;
   height: var(--page-currentHeaderHeight);
