@@ -19,6 +19,7 @@ import {
   WalletType,
 } from '@/constants/wallets';
 
+import useOnboardingFlow from '@/hooks/Onboarding/useOnboardingFlow';
 import { useAccountBalance } from '@/hooks/useAccountBalance';
 import { useAccounts } from '@/hooks/useAccounts';
 import { useBreakpoints } from '@/hooks/useBreakpoints';
@@ -36,6 +37,7 @@ import { headerMixins } from '@/styles/headerMixins';
 import { layoutMixins } from '@/styles/layoutMixins';
 
 import { AssetIcon } from '@/components/AssetIcon';
+import { Button } from '@/components/Button';
 import { CopyButton } from '@/components/CopyButton';
 import { DropdownMenu } from '@/components/DropdownMenu';
 import { Icon, IconName } from '@/components/Icon';
@@ -44,11 +46,8 @@ import { Output, OutputType } from '@/components/Output';
 import { Tag, TagSign } from '@/components/Tag';
 import { WalletIcon } from '@/components/WalletIcon';
 import { WithTooltip } from '@/components/WithTooltip';
-import useOnboardingFlow from '@/hooks/Onboarding/useOnboardingFlow';
 import { MobileDownloadLinks } from '@/views/MobileDownloadLinks';
 import { OnboardingTriggerButton } from '@/views/dialogs/OnboardingTriggerButton';
-
-import { Button } from '@/components/Button';
 
 import { getOnboardingState, getSubaccountFreeCollateral } from '@/state/accountSelectors';
 import { useAppDispatch, useAppSelector } from '@/state/appTypes';
@@ -602,7 +601,7 @@ const $VerifyWalletButton = styled(Button)`
   --button-border: solid var(--border-width) var(--color-accent);
   --button-textColor: var(--color-accent);
   --button-padding: 0.5rem 1.5rem;
-  
+
   span {
     color: var(--color-accent) !important;
   }

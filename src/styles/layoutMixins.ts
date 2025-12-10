@@ -129,8 +129,10 @@ const contentSectionDetached = css`
   ${() => stickyLeft}
 
   /* Use full container width - max-width constraint removed to allow content to fill constrained containers */
+  width: 100%;
   max-width: var(--content-container-width);
   transition: max-width 0.3s var(--ease-out-expo);
+  align-self: center;
 `;
 
 // An item within a horizontally scrollable container that is unaffected by the horizontal scroll position.

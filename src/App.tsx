@@ -189,67 +189,70 @@ const Content = () => {
           isShowingFooter={isShowingFooter}
           showRestrictionWarning={showComplianceBanner}
         >
-        <GlobalBackground />
-        {isShowingHeader && <HeaderDesktop />}
-        <RestrictionWarning />
-        <$Main>
-          <Suspense fallback={<LoadingSpace id="main" />}>
-            <Routes>
-              <Route path={`${AppRoute.Referrals}/*`} element={<AffiliatesPage />} />
+          <GlobalBackground />
+          {isShowingHeader && <HeaderDesktop />}
+          <RestrictionWarning />
+          <$Main>
+            <Suspense fallback={<LoadingSpace id="main" />}>
+              <Routes>
+                <Route path={`${AppRoute.Referrals}/*`} element={<AffiliatesPage />} />
 
-              <Route path={AppRoute.Trade}>
-                <Route path=":market" element={<TradePage />} />
-                <Route path={AppRoute.Trade} element={<TradePage />} />
-              </Route>
+                <Route path={AppRoute.Trade}>
+                  <Route path=":market" element={<TradePage />} />
+                  <Route path={AppRoute.Trade} element={<TradePage />} />
+                </Route>
 
-              {testFlags.spot && <Route path={`${AppRoute.Spot}/:symbol`} element={<SpotPage />} />}
+                {testFlags.spot && (
+                  <Route path={`${AppRoute.Spot}/:symbol`} element={<SpotPage />} />
+                )}
 
-              <Route path={AppRoute.Markets}>
-                <Route path={AppRoute.Markets} element={<MarketsPage />} />
-              </Route>
+                <Route path={AppRoute.Markets}>
+                  <Route path={AppRoute.Markets} element={<MarketsPage />} />
+                </Route>
 
-              <Route path={`${AppRoute.Rewards}/*`} element={<RewardsPage />} />
+                <Route path={`${AppRoute.Rewards}/*`} element={<RewardsPage />} />
 
-              {isTablet && (
-                <>
-                  <Route path={AppRoute.Alerts} element={<AlertsPage />} />
-                  <Route path={AppRoute.Profile} element={<ProfilePage />} />
-                  <Route path={`${AppRoute.Settings}/*`} element={<SettingsPage />} />
-                </>
-              )}
+                {isTablet && (
+                  <>
+                    <Route path={AppRoute.Alerts} element={<AlertsPage />} />
+                    <Route path={AppRoute.Profile} element={<ProfilePage />} />
+                    <Route path={`${AppRoute.Settings}/*`} element={<SettingsPage />} />
+                  </>
+                )}
 
-              <Route element={<GuardedMobileRoute />}>
-                <Route path={`${AppRoute.Portfolio}/*`} element={<PortfolioPage />} />
-              </Route>
+                <Route element={<GuardedMobileRoute />}>
+                  <Route path={`${AppRoute.Portfolio}/*`} element={<PortfolioPage />} />
+                </Route>
 
-              <Route path={AppRoute.Vault}>
-                <Route path={AppRoute.Vault} element={<VaultPage />} />
-              </Route>
-              <Route path={AppRoute.Terms} element={<TermsOfUsePage />} />
-              <Route path={AppRoute.Privacy} element={<PrivacyPolicyPage />} />
-              <Route
-                path="*"
-                element={
-                  <Navigate
-                    to={
-                      pathFromHash || (abDefaultToMarkets ? AppRoute.Markets : DEFAULT_TRADE_ROUTE)
-                    }
-                    replace
-                  />
-                }
-              />
-            </Routes>
-          </Suspense>
-        </$Main>
+                <Route path={AppRoute.Vault}>
+                  <Route path={AppRoute.Vault} element={<VaultPage />} />
+                </Route>
+                <Route path={AppRoute.Terms} element={<TermsOfUsePage />} />
+                <Route path={AppRoute.Privacy} element={<PrivacyPolicyPage />} />
+                <Route
+                  path="*"
+                  element={
+                    <Navigate
+                      to={
+                        pathFromHash ||
+                        (abDefaultToMarkets ? AppRoute.Markets : DEFAULT_TRADE_ROUTE)
+                      }
+                      replace
+                    />
+                  }
+                />
+              </Routes>
+            </Suspense>
+          </$Main>
 
-        {isTablet ? <FooterMobile /> : <FooterDesktop />}
+          {isTablet ? <FooterMobile /> : <FooterDesktop />}
 
-        <NotificationsToastArea tw="z-[2] [grid-area:Main]" />
+          <NotificationsToastArea tw="z-[2] [grid-area:Main]" />
 
-        <$DialogArea ref={dialogAreaRef}>
-          <DialogManager />
-        </$DialogArea>
-      </$Content>
+          <$DialogArea ref={dialogAreaRef}>
+            <DialogManager />
+          </$DialogArea>
+        </$Content>
       </$AppContainer>
     </>
   );
@@ -396,7 +399,7 @@ const $Content = styled.div<{
     ${layoutMixins.scrollArea}
     --scrollArea-height: 100vh;
 
-    position: relative;
+  position: relative;
 
   @supports (-webkit-touch-callout: none) {
     height: -webkit-fill-available;
@@ -409,7 +412,7 @@ const $Content = styled.div<{
   --stickyArea0-topGap: var(--border-width);
   --stickyArea0-bottomGap: var(--border-width);
   --stickyArea0-bottomHeight: var(--page-currentFooterHeight);
-  
+
   background: transparent;
 
   ${layoutMixins.withOuterAndInnerBorders}
@@ -442,7 +445,7 @@ const $Main = styled.main`
 
   padding-left: 1rem;
   padding-right: 1rem;
-  
+
   /* Override min-width from contentSectionAttached to allow proper grid constraints */
   min-width: 0;
   max-width: 100%;

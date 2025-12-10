@@ -39,7 +39,7 @@ export const TradeBoxOrderView = () => {
     <div tw="flex h-full flex-col gap-0">
       <TradeSideTabs
         sharedContent={
-          <div tw="flex flex-1 flex-col min-h-0">
+          <div tw="flex min-h-0 flex-1 flex-col">
             <$OrderTypeTabs
               value={selectedTradeType}
               items={tradeTypeItems}
@@ -78,10 +78,10 @@ const $OrderTypeTabs = styled(Tabs)`
   min-height: 0;
 
   /* Target the list container - use high specificity to override parent styles */
-  > div > header > ul[role="tablist"] {
+  > div > header > ul[role='tablist'] {
     width: 100%;
-    
-    > button[role="tab"] {
+
+    > button[role='tab'] {
       width: 33%;
       padding: 0;
 
@@ -93,7 +93,7 @@ const $OrderTypeTabs = styled(Tabs)`
   }
 
   /* Ensure underline shows - override any inherited box-shadow: none */
-  button[role="tab"][data-state='active'] {
+  button[role='tab'][data-state='active'] {
     box-shadow: inset 0 -2px 0 ${ColorToken.Orange0} !important;
   }
 ` as typeof Tabs;

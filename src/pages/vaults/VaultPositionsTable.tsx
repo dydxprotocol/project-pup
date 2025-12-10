@@ -255,7 +255,7 @@ const $Table = styled(Table)`
       max-width: 100vw;
     }
   }
-  
+
   border-radius: 1rem;
 ` as typeof Table;
 

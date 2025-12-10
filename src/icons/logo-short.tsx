@@ -1,6 +1,8 @@
 import { useCurrentAppThemeSetting } from '@/hooks/useAppThemeAndColorMode';
+
 import Logo from '@/icons/logos/logo.png';
 import LogoDark from '@/icons/logos/logo_dark.png';
+
 import { AppTheme } from '@/state/appUiConfigs';
 
 export const LogoShortIcon: React.FC<{ id?: string; width?: number; height?: number }> = ({

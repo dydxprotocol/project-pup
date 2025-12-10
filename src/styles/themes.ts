@@ -21,7 +21,7 @@ const DarkThemeBase: () => ThemeColorBase = () => ({
   layer4: ColorToken.BONKPurple,
   layer5: ColorToken.BONKPurple,
   layer6: ColorToken.BONKPurple,
-  layer7: ColorToken.BONKPurple,
+  layer7: ColorToken.BONKPurple2,
 
   borderDefault: 'transparent',
   borderFaded: generateFadedColorVariant(ColorToken.DarkGray14, OpacityToken.Opacity50),
@@ -68,7 +68,7 @@ const DarkThemeBase: () => ThemeColorBase = () => ({
   profileYellow: ColorToken.Yellow1,
   profileRed: ColorToken.Red2,
 
-  inputBackground: ColorToken.DarkGray6,
+  inputBackground: ColorToken.BONKPurple1,
   popoverBackground: ColorToken.DarkGray8,
   toggleBackground: ColorToken.DarkGray6,
   tooltipBackground: ColorToken.DarkGray6,
@@ -87,7 +87,7 @@ const LightThemeBase: () => ThemeColorBase = () => ({
 
   whiteFaded: generateFadedColorVariant(ColorToken.White, OpacityToken.Opacity16),
 
-  baseLayer: "#FF5A0220",
+  baseLayer: '#FF5A0220',
   layer0: ColorToken.White,
   layer1: ColorToken.White,
   layer2: ColorToken.White,

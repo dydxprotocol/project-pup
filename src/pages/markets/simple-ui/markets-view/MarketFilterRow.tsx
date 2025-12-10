@@ -4,7 +4,6 @@ import { MarketsSortType } from '@/constants/marketList';
 import { MARKET_FILTER_OPTIONS, MarketFilters } from '@/constants/markets';
 import { MenuItem } from '@/constants/menus';
 import { ColorToken } from '@/constants/styles/base';
-import { AppTheme } from '@/state/appUiConfigs';
 
 import { useCurrentAppThemeSetting } from '@/hooks/useAppThemeAndColorMode';
 import { useStringGetter } from '@/hooks/useStringGetter';
@@ -18,6 +17,8 @@ import { SimpleUiDropdownMenu } from '@/components/SimpleUiDropdownMenu';
 import { SortIcon } from '@/components/SortIcon';
 import { NewTag } from '@/components/Tag';
 import { ToggleGroup } from '@/components/ToggleGroup';
+
+import { AppTheme } from '@/state/appUiConfigs';
 
 const MarketFilterRow = ({
   filter,
@@ -39,14 +40,14 @@ const MarketFilterRow = ({
   const stringGetter = useStringGetter();
   const currentTheme = useCurrentAppThemeSetting();
   const isDark = currentTheme === AppTheme.Dark;
-  
+
   // Active: Purple0 for dark mode, Orange0 for light mode, with white text
   // Inactive: Transparent background in dark mode (white text, mild gray border), white in light mode (accent color text)
   const activeBgColor = isDark ? ColorToken.Purple0 : ColorToken.Orange0;
   const inactiveBgColor = isDark ? 'transparent' : ColorToken.White;
   const inactiveTextColor = isDark ? ColorToken.White : ColorToken.Orange0;
   const inactiveBorderColor = isDark ? ColorToken.MediumGray0 : undefined;
-  
+
   return (
     <div tw="flexColumn gap-1 px-1.25 py-1 pt-[1.25rem]">
       <div tw="row justify-between">

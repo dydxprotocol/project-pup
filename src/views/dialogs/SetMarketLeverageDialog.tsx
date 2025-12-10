@@ -328,7 +328,7 @@ const $LeverageSlider = styled(Slider)`
 const $SaveButton = styled(Button)`
   --button-textColor: var(--color-white) !important;
   --button-padding: 0.5rem 1.5rem;
-  
+
   span {
     color: var(--color-white) !important;
   }

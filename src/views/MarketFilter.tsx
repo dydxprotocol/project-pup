@@ -63,13 +63,13 @@ export const MarketFilter = forwardRef(
       () => (
         <WithLabel
           label={stringGetter({ key: STRING_KEYS.SHOW_LAUNCHABLE_MARKETS })}
-          tw="flex flex-row items-center"
+          tw="mr-1 flex flex-row flex-nowrap items-center"
         >
           <Switch
             name="show-launchable"
             checked={!shouldHideLaunchableMarkets}
             onCheckedChange={onShouldHideLaunchableMarkets}
-            tw="font-mini-book"
+            tw="inline-block font-mini-book"
           />
         </WithLabel>
       ),
@@ -114,8 +114,9 @@ export const MarketFilter = forwardRef(
             onTextChange={onSearchTextChange}
           />
         </div>
-
-        {filterToggles}
+        <div tw="flex w-full items-center justify-start gap-0.5 overflow-hidden">
+          {filterToggles}
+        </div>
       </$MarketFilter>
     );
   }
@@ -160,5 +161,4 @@ const $ToggleGroup = styled(ToggleGroup)`
 const $SearchInput = styled(SearchInput)`
   min-width: 12rem;
   flex-grow: 1;
-  background-color: var(--color-layer-2);
 `;

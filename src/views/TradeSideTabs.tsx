@@ -114,20 +114,23 @@ const $TradeSideTabs = styled(Tabs)<{ activeTab: OrderSide }>`
   }
 
   /* Style the list container */
-  > div > header > ul[role="tablist"] {
+  > div > header > ul[role='tablist'] {
     gap: 0.5rem;
   }
 
   /* Style individual tab triggers as pills - target buttons in header of first div only */
   /* Use multiple selector patterns to ensure we match */
-  > div:first-child header button[role="tab"],
-  > div:first-child > header button[role="tab"],
-  header:first-of-type button[role="tab"] {
+  > div:first-child header button[role='tab'],
+  > div:first-child > header button[role='tab'],
+  header:first-of-type button[role='tab'] {
     border-radius: 9999px !important; /* Fully rounded for pill shape */
     background-color: var(--trigger-backgroundColor) !important;
     color: var(--trigger-textColor) !important;
     opacity: 0.5 !important; /* 50% opacity for unselected tabs */
-    transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease !important;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      opacity 0.2s ease !important;
     box-shadow: none !important; /* Remove any underline box-shadow */
 
     &[data-state='active'] {

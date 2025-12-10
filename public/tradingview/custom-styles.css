@@ -38,8 +38,6 @@ body {
 
   --tv-color-platform-background: var(--color-layer-1);
   --tv-color-pane-background: var(--color-layer-1);
-  --tv-color-toolbar-background: var(--color-layer-1);
-  --tv-color-toolbar-button-background: var(--color-layer-1);
   --tv-color-toolbar-button-background-hover: var(--color-layer-3);
   --tv-color-toolbar-button-background-expanded: var(--color-layer-1);
   --tv-color-toolbar-button-background-active: var(--color-accent);
@@ -51,7 +49,7 @@ body {
   --tv-color-item-active-text: var(--color-text-button);
   --tv-color-toolbar-toggle-button-background-active: var(--color-accent);
   --tv-color-toolbar-toggle-button-background-active-hover: var(--color-accent);
-  --tv-color-toolbar-divider-background: var(--color-layer-1);
+  --tv-color-toolbar-divider-background: var(--color-border);
   --tv-color-toolbar-save-layout-loader: var(--color-border);
 
   --tv-color-popup-element-secondary-text: var(--color-text-2);
@@ -114,7 +112,6 @@ tr[data-role="menuitem"] {
 
 /* Layout Area */
 .layout__area--top {
-  background-color: var(--color-layer-1) !important;
   border-bottom: solid 1px var(--color-layer-1);
 }
 
@@ -169,19 +166,6 @@ tr[data-role="menuitem"] {
 .group-MBOVGQRI,
 .wrap-3jbioG5e {
   cursor: pointer;
-  background-color: var(--color-layer-1) !important;
-}
-
-/* Catch any toolbar container elements that might be using old colors */
-[class*="toolbar"],
-[class*="header"] {
-  background-color: var(--color-layer-1) !important;
-}
-
-/* But allow buttons and interactive elements to have their own backgrounds */
-.group-MBOVGQRI .button:not(:hover):not(:active),
-.group-MBOVGQRI button:not(:hover):not(:active) {
-  background-color: transparent !important;
 }
 
 /* Order Lines, OHLC, Buys/Sells buttons */
@@ -330,24 +314,6 @@ tr[data-role="menuitem"] {
 /* Divider */
 .separator-QjUlCDId,
 .layout__area--top {
-  background-color: var(--color-layer-1) !important;
-}
-
-/* Toolbar separator lines */
-.separatorWrap-MBOVGQRI,
-.separator-xVhBjD5m,
-.separator-MBOVGQRI {
-  background-color: var(--color-layer-1) !important;
-  border-color: var(--color-layer-1) !important;
-}
-
-.separatorWrap-MBOVGQRI .separator-xVhBjD5m,
-.separatorWrap-MBOVGQRI .separator-MBOVGQRI {
-  background-color: var(--color-layer-1) !important;
-  border-color: var(--color-layer-1) !important;
-}
-
-.separatorWrap-MBOVGQRI > div {
   background-color: var(--color-layer-1) !important;
 }
 
