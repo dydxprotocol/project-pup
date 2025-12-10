@@ -7,7 +7,7 @@ import styled, { css } from 'styled-components';
 import tw from 'twin.macro';
 
 import { AMOUNT_RESERVED_FOR_GAS_USDC, OnboardingState } from '@/constants/account';
-import { ButtonAction, ButtonShape, ButtonSize } from '@/constants/buttons';
+import { ButtonAction, ButtonShape, ButtonSize, ButtonType } from '@/constants/buttons';
 import { DialogTypes } from '@/constants/dialogs';
 import { STRING_KEYS } from '@/constants/localization';
 import { isDev } from '@/constants/networks';
@@ -57,8 +57,6 @@ import { truncateAddress } from '@/lib/wallet';
 import { SpotActions } from './SpotActions';
 import { SubaccountActions } from './SubaccountActions';
 import { WalletActions } from './WalletActions';
-
-// TODO: spot localization
 
 export const AccountMenu = () => {
   const stringGetter = useStringGetter();
