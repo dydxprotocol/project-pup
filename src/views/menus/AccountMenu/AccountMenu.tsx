@@ -44,8 +44,11 @@ import { Output, OutputType } from '@/components/Output';
 import { Tag, TagSign } from '@/components/Tag';
 import { WalletIcon } from '@/components/WalletIcon';
 import { WithTooltip } from '@/components/WithTooltip';
+import useOnboardingFlow from '@/hooks/Onboarding/useOnboardingFlow';
 import { MobileDownloadLinks } from '@/views/MobileDownloadLinks';
 import { OnboardingTriggerButton } from '@/views/dialogs/OnboardingTriggerButton';
+
+import { Button } from '@/components/Button';
 
 import { getOnboardingState, getSubaccountFreeCollateral } from '@/state/accountSelectors';
 import { useAppDispatch, useAppSelector } from '@/state/appTypes';
@@ -98,10 +101,6 @@ export const AccountMenu = () => {
 
   const { showMfaEnrollmentModal } = useMfaEnrollment();
 
-  const onRecoverKeys = () => {
-    dispatch(openDialog(DialogTypes.Onboarding()));
-  };
-
   const { appleAppStoreUrl, googlePlayStoreUrl } = useMobileAppUrl();
 
   const usedBalanceBN = MustBigNumber(usdcBalance);
@@ -111,9 +110,20 @@ export const AccountMenu = () => {
     usedBalanceBN.gt(AMOUNT_RESERVED_FOR_GAS_USDC) &&
     usedBalanceBN.minus(AMOUNT_RESERVED_FOR_GAS_USDC).toFixed(2) !== '0.00';
 
+  const { openOnboardingDialog, isOnboardingDisabled } = useOnboardingFlow();
+
   const walletIcon = useMemo(() => {
     if (onboardingState === OnboardingState.WalletConnected) {
-      return <Icon iconName={IconName.Warning} tw="text-[1.25rem] text-color-warning" />;
+      return (
+        <$VerifyWalletButton
+          action={ButtonAction.Base}
+          shape={ButtonShape.Pill}
+          size={ButtonSize.XSmall}
+          type={ButtonType.Button}
+        >
+          <span tw="font-small-bold">Re-verify wallet</span>
+        </$VerifyWalletButton>
+      );
     }
 
     if (walletInfo == null) {
@@ -168,7 +178,7 @@ export const AccountMenu = () => {
     }
 
     return <WalletIcon wallet={walletInfo} />;
-  }, [onboardingState, walletInfo, google, discord, twitter, theme]);
+  }, [onboardingState, walletInfo, google, discord, twitter, theme, stringGetter]);
 
   return onboardingState === OnboardingState.Disconnected ? (
     <OnboardingTriggerButton size={ButtonSize.XSmall} />
@@ -321,7 +331,9 @@ export const AccountMenu = () => {
               <OnboardingTriggerButton />
             </$ConnectToChain>
           ),
-          onSelect: onRecoverKeys,
+          onSelect: () => {
+            dispatch(openDialog(DialogTypes.Onboarding()));
+          },
           separator: true,
         },
         onboardingState === OnboardingState.AccountConnected &&
@@ -583,4 +595,15 @@ const $IconButton = styled(IconButton)`
 const $CopyButton = styled(CopyButton)`
   --button-padding: 0 0.25rem;
   --button-border: solid var(--border-width) var(--color-layer-6);
+`;
+
+const $VerifyWalletButton = styled(Button)`
+  --button-backgroundColor: transparent;
+  --button-border: solid var(--border-width) var(--color-accent);
+  --button-textColor: var(--color-accent);
+  --button-padding: 0.5rem 1.5rem;
+  
+  span {
+    color: var(--color-accent) !important;
+  }
 `;
