@@ -19,7 +19,6 @@ import {
   WalletType,
 } from '@/constants/wallets';
 
-import useOnboardingFlow from '@/hooks/Onboarding/useOnboardingFlow';
 import { useAccountBalance } from '@/hooks/useAccountBalance';
 import { useAccounts } from '@/hooks/useAccounts';
 import { useBreakpoints } from '@/hooks/useBreakpoints';
@@ -109,8 +108,6 @@ export const AccountMenu = () => {
     usedBalanceBN.gt(AMOUNT_RESERVED_FOR_GAS_USDC) &&
     usedBalanceBN.minus(AMOUNT_RESERVED_FOR_GAS_USDC).toFixed(2) !== '0.00';
 
-  const { openOnboardingDialog, isOnboardingDisabled } = useOnboardingFlow();
-
   const walletIcon = useMemo(() => {
     if (onboardingState === OnboardingState.WalletConnected) {
       return (
@@ -177,7 +174,7 @@ export const AccountMenu = () => {
     }
 
     return <WalletIcon wallet={walletInfo} />;
-  }, [onboardingState, walletInfo, google, discord, twitter, theme, stringGetter]);
+  }, [onboardingState, walletInfo, google, discord, twitter, theme]);
 
   return onboardingState === OnboardingState.Disconnected ? (
     <OnboardingTriggerButton size={ButtonSize.XSmall} />

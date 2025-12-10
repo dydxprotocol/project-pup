@@ -5,7 +5,6 @@ import { ButtonAction, ButtonShape, ButtonSize, ButtonType } from '@/constants/b
 import { STRING_KEYS } from '@/constants/localization';
 
 import useOnboardingFlow from '@/hooks/Onboarding/useOnboardingFlow';
-import { useSimpleUiEnabled } from '@/hooks/useSimpleUiEnabled';
 import { useStringGetter } from '@/hooks/useStringGetter';
 
 import { Button } from '@/components/Button';
@@ -27,7 +26,6 @@ export const OnboardingTriggerButton = ({
   size = ButtonSize.Small,
 }: OnboardingTriggerButtonProps & StyleProps) => {
   const stringGetter = useStringGetter();
-  const isSimpleUi = useSimpleUiEnabled();
   const { openOnboardingDialog, onboardingState, isAccountViewOnly, isOnboardingDisabled } =
     useOnboardingFlow({ onClick });
 
