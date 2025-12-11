@@ -125,8 +125,9 @@ export const SharePNLAnalyticsDialog = ({
             value={unrealizedPnl}
             showSign={ShowSign.Both}
           />
-
-          <LogoShortIcon tw="mt-auto h-auto w-[5.125rem]" />
+          <div className="mt-auto flex h-auto max-h-[3rem] w-full justify-center">
+            <LogoShortIcon tw="h-auto w-full" />
+          </div>
         </div>
 
         <div tw="grid">
