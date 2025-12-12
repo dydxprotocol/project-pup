@@ -8,7 +8,6 @@ import tw from 'twin.macro';
 import { ButtonAction } from '@/constants/buttons';
 import { DialogTypes } from '@/constants/dialogs';
 import { STRING_KEYS } from '@/constants/localization';
-import { isDev } from '@/constants/networks';
 import { TOKEN_DECIMALS } from '@/constants/numbers';
 import { StatsigFlags } from '@/constants/statsig';
 
@@ -45,8 +44,9 @@ export const LaunchIncentivesPanel = ({ className }: { className?: string }) => 
     dispatch(markLaunchIncentivesSeen());
   }, [dispatch]);
 
+  // NOTE: may need to remove this ff check all together
   const isSept2025RewardsBase = useStatsigGateValue(StatsigFlags.ffSeptember2025Rewards);
-  const isSept2025Rewards = isDev ? true : isSept2025RewardsBase;
+  const isSept2025Rewards = isSept2025RewardsBase;
   if (isSept2025Rewards) {
     return <September2025RewardsPanel />;
   }
