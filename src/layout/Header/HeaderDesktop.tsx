@@ -68,7 +68,7 @@ export const HeaderDesktop = () => {
           label: stringGetter({ key: STRING_KEYS.MARKETS }),
           href: AppRoute.Markets,
         },
-        {
+        onboardingState === OnboardingState.AccountConnected && {
           value: 'PORTFOLIO',
           label: stringGetter({ key: STRING_KEYS.PORTFOLIO }),
           href: AppRoute.Portfolio,
@@ -178,14 +178,16 @@ export const HeaderDesktop = () => {
           onClick={() => dispatch(openDialog(DialogTypes.Help()))}
         />
 
-        <NotificationsMenu
-          slotTrigger={
-            <$IconButton
-              shape={ButtonShape.Rectangle}
-              iconComponent={BellStrokeIcon as React.ElementType}
-            />
-          }
-        />
+        {onboardingState === OnboardingState.AccountConnected && (
+          <NotificationsMenu
+            slotTrigger={
+              <$IconButton
+                shape={ButtonShape.Rectangle}
+                iconComponent={BellStrokeIcon as React.ElementType}
+              />
+            }
+          />
+        )}
 
         <AccountMenu />
       </$NavAfter>
