@@ -33,7 +33,8 @@ import { NotificationsMenu } from '@/views/menus/NotificationsMenu';
 
 import { getOnboardingState } from '@/state/accountSelectors';
 import { useAppDispatch, useAppSelector } from '@/state/appTypes';
-import { getHasSeenLaunchIncentives } from '@/state/appUiConfigsSelectors';
+import { AppTheme, setAppThemeSetting } from '@/state/appUiConfigs';
+import { getAppTheme, getHasSeenLaunchIncentives } from '@/state/appUiConfigsSelectors';
 import { openDialog } from '@/state/dialogs';
 
 import { isTruthy } from '@/lib/isTruthy';
@@ -46,8 +47,14 @@ export const HeaderDesktop = () => {
   const onboardingState = useAppSelector(getOnboardingState);
   const { complianceState } = useComplianceState();
   const isSpotEnabled = useEnableSpot();
+  const currentTheme = useAppSelector(getAppTheme);
 
   const hasSeenLaunchIncentives = useAppSelector(getHasSeenLaunchIncentives);
+
+  const handleThemeToggle = () => {
+    const newTheme = currentTheme === AppTheme.Dark ? AppTheme.Light : AppTheme.Dark;
+    dispatch(setAppThemeSetting(newTheme));
+  };
 
   const navItems = [
     {
@@ -184,6 +191,12 @@ export const HeaderDesktop = () => {
           />
         )}
 
+        <$ThemeToggleButton
+          shape={ButtonShape.Rectangle}
+          iconName={currentTheme === AppTheme.Dark ? IconName.Sun : IconName.Moon}
+          onClick={handleThemeToggle}
+        />
+
         <$AccountMenuWrapper>
           <AccountMenu />
         </$AccountMenuWrapper>
@@ -288,6 +301,13 @@ const $IconButton = styled(IconButton)<{ size?: string }>`
   --button-border: none;
   --button-icon-size: 1.15rem;
   --button-padding: 0 0.5em;
+`;
+
+const $ThemeToggleButton = styled(IconButton)`
+  ${headerMixins.button}
+  --button-border: none;
+  --button-icon-size: 1.25em;
+  --button-padding: 0.33rem 0.5rem;
 `;
 
 const $LanguageSelector = styled(LanguageSelector)`
