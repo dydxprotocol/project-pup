@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { layoutMixins } from '@/styles/layoutMixins';
-
 import { ComplianceBanner } from './ComplianceBanner';
 
 export const RestrictionWarning = () => {
