@@ -74,11 +74,6 @@ export const HeaderDesktop = () => {
           href: AppRoute.Portfolio,
         },
         {
-          value: 'VAULT',
-          label: stringGetter({ key: STRING_KEYS.MEGAVAULT }),
-          href: AppRoute.Vault,
-        },
-        {
           value: 'REWARDS',
           label: stringGetter({ key: STRING_KEYS.REWARDS }),
           href: AppRoute.Rewards,
@@ -90,6 +85,12 @@ export const HeaderDesktop = () => {
           value: 'MORE',
           label: stringGetter({ key: STRING_KEYS.MORE }),
           subitems: [
+            {
+              value: 'VAULT',
+              slotBefore: <Icon iconName={IconName.Bank} />,
+              label: stringGetter({ key: STRING_KEYS.MEGAVAULT }),
+              href: AppRoute.Vault,
+            },
             {
               value: 'DOCUMENTATION',
               slotBefore: <Icon iconName={IconName.Terminal} />,
@@ -172,12 +173,6 @@ export const HeaderDesktop = () => {
           <MobileDownloadLinks />
         )}
 
-        <$IconButton
-          shape={ButtonShape.Rectangle}
-          iconName={IconName.HelpCircle}
-          onClick={() => dispatch(openDialog(DialogTypes.Help()))}
-        />
-
         {onboardingState === OnboardingState.AccountConnected && (
           <NotificationsMenu
             slotTrigger={
@@ -189,7 +184,9 @@ export const HeaderDesktop = () => {
           />
         )}
 
-        <AccountMenu />
+        <$AccountMenuWrapper>
+          <AccountMenu />
+        </$AccountMenuWrapper>
       </$NavAfter>
     </$Header>
   );
@@ -269,7 +266,7 @@ const $LogoLink = styled(Link)`
   > div {
     margin: auto;
     width: auto;
-    height: 69%;
+    height: 85%;
   }
 `;
 
@@ -289,7 +286,7 @@ const $NavAfter = styled.div`
 const $IconButton = styled(IconButton)<{ size?: string }>`
   ${headerMixins.button}
   --button-border: none;
-  --button-icon-size: 1rem;
+  --button-icon-size: 1.15rem;
   --button-padding: 0 0.5em;
 `;
 
@@ -304,5 +301,15 @@ const $DepositButton = styled(Button)`
 
   span {
     color: var(--color-white) !important;
+  }
+`;
+
+const $AccountMenuWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
+  > * {
+    transform: scale(1.15);
+    transform-origin: center;
   }
 `;
