@@ -128,6 +128,9 @@ const Content = () => {
 
   const { dialogAreaRef } = useDialogArea() ?? {};
 
+  // Check if we're on the trade page
+  const isTradePage = matchPath(`${AppRoute.Trade}/*`, location.pathname) !== null;
+
   if (isSimpleUi) {
     const matchMarkets = matchPath(AppRoute.Markets, location.pathname);
     const backgroundColor =
@@ -191,7 +194,7 @@ const Content = () => {
   return (
     <>
       <GlobalStyle />
-      <$AppContainer>
+      <$AppContainer isTradePage={isTradePage}>
         <$Content
           isShowingHeader={isShowingHeader}
           isShowingFooter={isShowingFooter}
@@ -354,9 +357,16 @@ function shouldForwardProp(propName: string, target: WebTarget): boolean {
   return true;
 }
 
-const $AppContainer = styled.div`
+const $AppContainer = styled.div<{ isTradePage?: boolean }>`
   width: 100%;
-  max-width: 1600px;
+  ${({ isTradePage }) =>
+    isTradePage
+      ? css`
+          max-width: 2400px;
+        `
+      : css`
+          max-width: 1600px;
+        `}
   margin-left: auto;
   margin-right: auto;
 `;
