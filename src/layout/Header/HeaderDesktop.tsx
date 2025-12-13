@@ -222,6 +222,10 @@ const $Header = styled.header`
 
   grid-area: Header;
 
+  /* Override border from withOuterAndInnerBorders */
+  --border-color: transparent;
+  box-shadow: none;
+
   display: grid;
   align-items: stretch;
   grid-auto-flow: column;

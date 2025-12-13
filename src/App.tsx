@@ -417,14 +417,20 @@ const $Content = styled.div<{
   --stickyArea0-background: transparent;
   --stickyArea-background: transparent;
   --stickyArea0-topHeight: var(--page-currentHeaderHeight);
-  --stickyArea0-topGap: var(--border-width);
-  --stickyArea0-bottomGap: var(--border-width);
+  --stickyArea0-topGap: 0;
+  --stickyArea0-bottomGap: 0;
   --stickyArea0-bottomHeight: var(--page-currentFooterHeight);
 
   background: transparent;
 
   ${layoutMixins.withOuterAndInnerBorders}
   display: grid;
+
+  /* Remove borders from all grid children to prevent sticky borders */
+  > * {
+    --border-color: transparent;
+    box-shadow: none;
+  }
 
   ${({ showRestrictionWarning, isShowingHeader }) => css`
     grid-template:
