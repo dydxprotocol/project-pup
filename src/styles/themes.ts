@@ -70,7 +70,7 @@ const DarkThemeBase: () => ThemeColorBase = () => ({
   profileYellow: ColorToken.Yellow1,
   profileRed: ColorToken.Red2,
 
-  inputBackground: ColorToken.BONKPurple1,
+  inputBackground: ColorToken.BONKPurple7,
   popoverBackground: ColorToken.DarkGray8,
   toggleBackground: ColorToken.DarkGray6,
   tooltipBackground: ColorToken.DarkGray6,
@@ -146,7 +146,7 @@ const LightThemeBase: () => ThemeColorBase = () => ({
   profileYellow: ColorToken.Yellow1,
   profileRed: ColorToken.Red2,
 
-  inputBackground: ColorToken.LightGray3,
+  inputBackground: ColorToken.LightGray1,
   popoverBackground: ColorToken.LightGray9,
   toggleBackground: ColorToken.LightGray4,
   tooltipBackground: ColorToken.LightGray8,
