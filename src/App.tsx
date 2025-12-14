@@ -362,7 +362,7 @@ const $AppContainer = styled.div<{ isTradePage?: boolean }>`
   ${({ isTradePage }) =>
     isTradePage
       ? css`
-          max-width: 2400px;
+          max-width: 2000px;
         `
       : css`
           max-width: 1600px;
