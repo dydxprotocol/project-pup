@@ -64,16 +64,16 @@ const $Container = styled.div`
   justify-content: start;
   align-items: stretch;
   background-color: var(--color-layer-1) !important; // TODO: figure out why this is needed
-  
+
   /* Completely override box-shadow border from withOuterAndInnerBorders */
   --border-color: transparent !important;
   box-shadow: none !important;
-  
+
   /* Apply rounded border using border property which respects border-radius */
   border: var(--default-border-width, 1px) solid var(--color-border) !important;
   border-radius: 0.75rem !important;
   overflow: hidden; // Clip content and borders to rounded corners
-  
+
   /* Use isolation to create a new stacking context */
   isolation: isolate;
   position: relative;
