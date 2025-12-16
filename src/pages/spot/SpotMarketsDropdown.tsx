@@ -152,7 +152,7 @@ export const SpotMarketsDropdown = ({
       }
       triggerType={TriggerType.MarketDropdown}
     >
-      <div tw="flex flex-col min-h-0">
+      <div tw="flex min-h-0 flex-col">
         <$Toolbar>
           <$SearchInput
             placeholder="Search markets"
@@ -231,7 +231,8 @@ const $Popover = styled(Popover)`
   max-height: calc(
     100vh - var(--page-header-height) - var(--market-info-row-height) - var(
         --page-footer-height
-      ) - var(--restriction-warning-currentHeight) - 4rem
+      ) - var(--restriction-warning-currentHeight) -
+      4rem
   );
 
   width: var(--spot-marketsDropdown-openWidth);

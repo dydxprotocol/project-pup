@@ -410,7 +410,8 @@ const $Popover = styled(Popover)`
   max-height: calc(
     100vh - var(--page-header-height) - var(--market-info-row-height) - var(
         --page-footer-height
-      ) - var(--restriction-warning-currentHeight) - 4rem
+      ) - var(--restriction-warning-currentHeight) -
+      4rem
   );
 
   width: var(--marketsDropdown-openWidth);

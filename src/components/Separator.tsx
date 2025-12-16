@@ -18,7 +18,7 @@ const StyledSeparator = styled(Separator)<{ $fullHeight: boolean; $transparent?:
     align-self: center;
     width: 0;
     margin: 0 !important;
-    border-right: solid var(--border-width, var(--default-border-width)) 
+    border-right: solid var(--border-width, var(--default-border-width))
       ${({ $transparent }) => ($transparent ? 'transparent' : 'var(--color-border)')};
 
     ${({ $fullHeight }) =>
