@@ -25,9 +25,7 @@ import { WalletIcon } from '@/components/WalletIcon';
 
 export const ChooseWallet = ({
   onChooseWallet,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onSignInWithSocials,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onSignInWithPasskey,
 }: {
   onChooseWallet: (wallet: WalletInfo) => void;
