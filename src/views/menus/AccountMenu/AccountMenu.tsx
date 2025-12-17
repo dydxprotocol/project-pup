@@ -1,7 +1,7 @@
-import { ElementType, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { BonsaiCore } from '@/bonsai/ontology';
-import { useMfaEnrollment, usePrivy } from '@privy-io/react-auth';
+// import { useMfaEnrollment } from '@privy-io/react-auth';
 import { LAMPORTS_PER_SOL } from '@solana/web3.js';
 import styled, { css } from 'styled-components';
 import tw from 'twin.macro';
@@ -13,21 +13,20 @@ import { STRING_KEYS } from '@/constants/localization';
 import { isDev } from '@/constants/networks';
 import { SMALL_USD_DECIMALS, USD_DECIMALS } from '@/constants/numbers';
 import { StatsigFlags } from '@/constants/statsig';
-import { ConnectorType, DydxChainAsset, wallets, WalletType } from '@/constants/wallets';
+import { DydxChainAsset, WalletType } from '@/constants/wallets';
 
 import { useAccountBalance } from '@/hooks/useAccountBalance';
 import { useAccounts } from '@/hooks/useAccounts';
 import { useBreakpoints } from '@/hooks/useBreakpoints';
 import { useEnableSpot } from '@/hooks/useEnableSpot';
 import { useEnvFeatures } from '@/hooks/useEnvFeatures';
-import { useMobileAppUrl } from '@/hooks/useMobileAppUrl';
 import { usePerpetualsComplianceState } from '@/hooks/usePerpetualsComplianceState';
 import { useStatsigGateValue } from '@/hooks/useStatsig';
 import { useStringGetter } from '@/hooks/useStringGetter';
 import { useSubaccount } from '@/hooks/useSubaccount';
 import { useTokenConfigs } from '@/hooks/useTokenConfigs';
 
-import { AppleIcon, AppleLightIcon, DiscordIcon, GoogleIcon, TwitterIcon } from '@/icons';
+// import { AppleIcon, AppleLightIcon, DiscordIcon, GoogleIcon, TwitterIcon } from '@/icons';
 import { headerMixins } from '@/styles/headerMixins';
 import { layoutMixins } from '@/styles/layoutMixins';
 
@@ -88,12 +87,12 @@ export const AccountMenu = () => {
   } = useAccounts();
   const { registerAffiliate } = useSubaccount();
 
-  const privy = usePrivy();
-  const { google, discord, twitter } = privy.user ?? {};
+  // const privy = usePrivy();
+  // const { google, discord, twitter } = privy.user ?? {};
 
-  const { showMfaEnrollmentModal } = useMfaEnrollment();
+  // const { showMfaEnrollmentModal } = useMfaEnrollment();
 
-  const { appleAppStoreUrl, googlePlayStoreUrl } = useMobileAppUrl();
+  // const { appleAppStoreUrl, googlePlayStoreUrl } = useMobileAppUrl();
 
   const usedBalanceBN = MustBigNumber(usdcBalance);
 
@@ -120,55 +119,55 @@ export const AccountMenu = () => {
       return null;
     }
 
-    if (
-      onboardingState === OnboardingState.AccountConnected &&
-      walletInfo.name === WalletType.Privy
-    ) {
-      if (google) {
-        return <Icon iconComponent={GoogleIcon as ElementType} />;
-      }
+    // if (
+    //   onboardingState === OnboardingState.AccountConnected &&
+    //   walletInfo.name === WalletType.Privy
+    // ) {
+    //   if (google) {
+    //     return <Icon iconComponent={GoogleIcon as ElementType} />;
+    //   }
 
-      if (discord) {
-        return <Icon iconComponent={DiscordIcon as ElementType} />;
-      }
+    //   if (discord) {
+    //     return <Icon iconComponent={DiscordIcon as ElementType} />;
+    //   }
 
-      if (twitter) {
-        return <Icon iconComponent={TwitterIcon as ElementType} />;
-      }
+    //   if (twitter) {
+    //     return <Icon iconComponent={TwitterIcon as ElementType} />;
+    //   }
 
-      return (
-        <Icon
-          tw="rounded-[0.25rem]"
-          iconComponent={wallets[WalletType.Privy].icon as ElementType}
-        />
-      );
-    }
+    //   return (
+    //     <Icon
+    //       tw="rounded-[0.25rem]"
+    //       iconComponent={wallets[WalletType.Privy].icon as ElementType}
+    //     />
+    //   );
+    // }
 
-    if (
-      onboardingState === OnboardingState.AccountConnected &&
-      walletInfo.connectorType === ConnectorType.Turnkey
-    ) {
-      if (walletInfo.providerName === 'google') {
-        return <Icon iconComponent={GoogleIcon as ElementType} />;
-      }
+    // if (
+    //   onboardingState === OnboardingState.AccountConnected &&
+    //   walletInfo.connectorType === ConnectorType.Turnkey
+    // ) {
+    //   if (walletInfo.providerName === 'google') {
+    //     return <Icon iconComponent={GoogleIcon as ElementType} />;
+    //   }
 
-      if (walletInfo.providerName === 'apple') {
-        return (
-          <Icon
-            iconComponent={
-              theme === AppTheme.Light
-                ? (AppleIcon as ElementType)
-                : (AppleLightIcon as ElementType)
-            }
-          />
-        );
-      }
+    //   if (walletInfo.providerName === 'apple') {
+    //     return (
+    //       <Icon
+    //         iconComponent={
+    //           theme === AppTheme.Light
+    //             ? (AppleIcon as ElementType)
+    //             : (AppleLightIcon as ElementType)
+    //         }
+    //       />
+    //     );
+    //   }
 
-      return <Icon iconComponent={wallets[WalletType.Turnkey].icon as ElementType} />;
-    }
+    //   return <Icon iconComponent={wallets[WalletType.Turnkey].icon as ElementType} />;
+    // }
 
     return <WalletIcon wallet={walletInfo} />;
-  }, [onboardingState, walletInfo, google, discord, twitter, theme]);
+  }, [onboardingState, walletInfo, theme]);
 
   return onboardingState === OnboardingState.Disconnected ? (
     <OnboardingTriggerButton size={ButtonSize.XSmall} />
@@ -398,24 +397,24 @@ export const AccountMenu = () => {
               },
             ]
           : []),
-        ...((appleAppStoreUrl ?? googlePlayStoreUrl)
-          ? [
-              {
-                value: 'MobileDownload',
-                icon: <Icon iconName={IconName.Qr} />,
-                label: stringGetter({ key: STRING_KEYS.DOWNLOAD_MOBILE_APP }),
-                onSelect: () => {
-                  dispatch(
-                    openDialog(
-                      DialogTypes.MobileDownload({
-                        mobileAppUrl: (appleAppStoreUrl ?? googlePlayStoreUrl)!,
-                      })
-                    )
-                  );
-                },
-              },
-            ]
-          : []),
+        // ...((appleAppStoreUrl ?? googlePlayStoreUrl)
+        //   ? [
+        //       {
+        //         value: 'MobileDownload',
+        //         icon: <Icon iconName={IconName.Qr} />,
+        //         label: stringGetter({ key: STRING_KEYS.DOWNLOAD_MOBILE_APP }),
+        //         onSelect: () => {
+        //           dispatch(
+        //             openDialog(
+        //               DialogTypes.MobileDownload({
+        //                 mobileAppUrl: (appleAppStoreUrl ?? googlePlayStoreUrl)!,
+        //               })
+        //             )
+        //           );
+        //         },
+        //       },
+        //     ]
+        //   : []),
         onboardingState === OnboardingState.AccountConnected &&
           hdKey && {
             value: 'MobileQrSignIn',
@@ -432,16 +431,16 @@ export const AccountMenu = () => {
             highlightColor: 'destroy' as const,
             onSelect: () => dispatch(openDialog(DialogTypes.MnemonicExport())),
           },
-        ...(privy.ready && privy.authenticated
-          ? [
-              {
-                value: 'MFA',
-                icon: <Icon iconName={IconName.Lock} />,
-                label: stringGetter({ key: STRING_KEYS.MULTI_FACTOR_AUTH }),
-                onSelect: () => showMfaEnrollmentModal(),
-              },
-            ]
-          : []),
+        // ...(privy.ready && privy.authenticated
+        //   ? [
+        //       {
+        //         value: 'MFA',
+        //         icon: <Icon iconName={IconName.Lock} />,
+        //         label: stringGetter({ key: STRING_KEYS.MULTI_FACTOR_AUTH }),
+        //         onSelect: () => showMfaEnrollmentModal(),
+        //       },
+        //     ]
+        //   : []),
         {
           value: 'Disconnect',
           icon: <Icon iconName={IconName.BoxClose} />,

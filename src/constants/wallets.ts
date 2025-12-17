@@ -3,16 +3,15 @@ import { type WalletType as CosmosWalletType } from 'graz';
 import { type EIP6963ProviderInfo } from 'mipd';
 
 import { STRING_KEYS } from '@/constants/localization';
-import { LoginMethod } from '@/types/turnkey';
 
+// import { LoginMethod } from '@/types/turnkey';
 import {
   CoinbaseIcon, // EmailIcon,
   GenericWalletIcon,
   KeplrIcon,
   MetaMaskIcon,
   OkxWalletIcon,
-  PhantomIcon,
-  PrivyIcon,
+  PhantomIcon, // PrivyIcon,
   WalletConnectIcon,
 } from '@/icons';
 
@@ -60,10 +59,10 @@ export enum WalletType {
   WalletConnect2 = 'WALLETCONNECT_2',
   TestWallet = 'TEST_WALLET',
   OtherWallet = 'OTHER_WALLET',
-  Privy = 'PRIVY',
+  // Privy = 'PRIVY',
   Phantom = 'PHANTOM',
   MetaMask = 'METAMASK',
-  Turnkey = 'TURNKEY',
+  // Turnkey = 'TURNKEY',
 }
 
 export enum ConnectorType {
@@ -74,9 +73,9 @@ export enum ConnectorType {
   WalletConnect = 'walletConnect',
   Cosmos = 'cosmos',
   Test = 'test',
-  Privy = 'privy',
+  // Privy = 'privy',
   PhantomSolana = 'phantomSolana',
-  Turnkey = 'turnkey',
+  // Turnkey = 'turnkey',
 }
 
 export enum WalletNetworkType {
@@ -94,18 +93,18 @@ export type WalletInfo =
       connectorType:
         | ConnectorType.Coinbase
         | ConnectorType.WalletConnect
-        | ConnectorType.PhantomSolana
-        | ConnectorType.Privy;
+        | ConnectorType.PhantomSolana;
+      // | ConnectorType.Privy;
       name: WalletType;
     }
-  | {
-      connectorType: ConnectorType.Turnkey;
-      name: WalletType.Turnkey;
-      userEmail?: string;
-      providerName?: string;
-      loginMethod: LoginMethod;
-      requiresAddressUpload?: boolean;
-    }
+  // | {
+  //     connectorType: ConnectorType.Turnkey;
+  //     name: WalletType.Turnkey;
+  //     userEmail?: string;
+  //     providerName?: string;
+  //     loginMethod: LoginMethod;
+  //     requiresAddressUpload?: boolean;
+  //   }
   | {
       connectorType: ConnectorType.Cosmos;
       name: CosmosWalletType;
@@ -145,11 +144,11 @@ export const wallets = {
     stringKey: STRING_KEYS.TEST_WALLET,
     icon: GenericWalletIcon,
   },
-  [WalletType.Privy]: {
-    type: WalletType.Privy,
-    stringKey: STRING_KEYS.PRIVY,
-    icon: PrivyIcon,
-  },
+  // [WalletType.Privy]: {
+  //   type: WalletType.Privy,
+  //   stringKey: STRING_KEYS.PRIVY,
+  //   icon: PrivyIcon,
+  // },
   [WalletType.Phantom]: {
     type: WalletType.Phantom,
     stringKey: STRING_KEYS.PHANTOM_SOL,
