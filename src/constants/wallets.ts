@@ -6,8 +6,7 @@ import { STRING_KEYS } from '@/constants/localization';
 import { LoginMethod } from '@/types/turnkey';
 
 import {
-  CoinbaseIcon,
-  EmailIcon,
+  CoinbaseIcon, // EmailIcon,
   GenericWalletIcon,
   KeplrIcon,
   MetaMaskIcon,
@@ -166,11 +165,11 @@ export const wallets = {
     stringKey: STRING_KEYS.METAMASK,
     icon: MetaMaskIcon,
   },
-  [WalletType.Turnkey]: {
-    type: WalletType.Turnkey,
-    stringKey: STRING_KEYS.EMAIL_OR_SOCIAL,
-    icon: EmailIcon,
-  },
+  // [WalletType.Turnkey]: {
+  //   type: WalletType.Turnkey,
+  //   stringKey: STRING_KEYS.EMAIL_OR_SOCIAL,
+  //   icon: EmailIcon,
+  // },
 } satisfies Record<WalletInfo['name'], WalletConfig>;
 
 /**
