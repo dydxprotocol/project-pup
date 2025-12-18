@@ -8,7 +8,7 @@ import {
 
 import { dd } from './datadog';
 
-const DEBUG_ANALYTICS = false;
+const DEBUG_ANALYTICS = true;
 
 export const identify = (property: AnalyticsUserProperty) => {
   const propertyTypeToLog = AnalyticsUserPropertyLoggableTypes[property.type];
@@ -29,12 +29,17 @@ export const identify = (property: AnalyticsUserProperty) => {
 };
 
 export const track = (event: AnalyticsEvent) => {
+  const eventPayload = { ...event.payload, frontend: 'bonk' };
+
   if (DEBUG_ANALYTICS || import.meta.env.VITE_LOG_TRACK_EVENTS === 'true') {
     // eslint-disable-next-line no-console
-    console.log(`[Analytics] ${event.type}`, event.payload);
+    console.log(`[Analytics] ${event.type}`, eventPayload);
   }
   const customEvent = customTrackEvent({
-    detail: { eventType: event.type, eventData: event.payload },
+    detail: {
+      eventType: event.type,
+      eventData: eventPayload,
+    },
   });
 
   globalThis.dispatchEvent(customEvent);
