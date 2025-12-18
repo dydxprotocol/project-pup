@@ -206,7 +206,7 @@ const $Header = styled.header`
   margin-top: 1.75rem;
   margin-bottom: 1rem;
   width: 100%;
-  max-width: 1800px;
+  /* max-width: 100%; */
   margin-left: auto;
   margin-right: auto;
   padding-left: 1rem;

@@ -184,9 +184,9 @@ const PortfolioPage = () => {
       <$MobileContent>{routesComponent}</$MobileContent>
     </$PortfolioMobile>
   ) : (
-    <WithSidebar
+    <$WithSidebar
       sidebar={
-        <div tw="flexColumn h-full justify-between bg-color-layer-0">
+        <div tw="flexColumn h-full min-h-[70svh] justify-between bg-color-layer-0">
           <$NavigationMenu
             items={[
               {
@@ -321,11 +321,16 @@ const PortfolioPage = () => {
       }
     >
       {routesComponent}
-    </WithSidebar>
+    </$WithSidebar>
   );
 };
 
 export default PortfolioPage;
+
+const $WithSidebar = styled(WithSidebar)`
+  height: 100%;
+  min-height: 100%;
+`;
 
 const $PortfolioMobile = styled.div`
   min-height: 100%;
