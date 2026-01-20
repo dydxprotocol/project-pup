@@ -23,10 +23,7 @@ export const identify = (property: AnalyticsUserProperty) => {
   });
   const ddPropertyName = `user-property-${propertyTypeToLog}`;
   dd.setContextProperty(ddPropertyName, property.payload);
-  dd.info(`set context item: ${ddPropertyName} to value ${property.payload}`, {
-    ...dd.getContext(),
-    frontend: 'bonk',
-  });
+  dd.info(`set context item: ${ddPropertyName} to value ${property.payload}`, dd.getContext());
 
   globalThis.dispatchEvent(customEvent);
 };

@@ -32,31 +32,52 @@ async function inject(fileName) {
   const amplitudeListenerScript = `<script type="module">
     !(function () {
       var e = "${AMPLITUDE_API_KEY}";
-      e &&
-        (globalThis.amplitude.init(e${
-          AMPLITUDE_SERVER_URL
-            ? `, undefined, {
-              serverUrl: "${AMPLITUDE_SERVER_URL}",
-              serverZone: "${AMPLITUDE_SERVER_ZONE}"
-            }`
-            : ''
-        }),
-        globalThis.amplitude.setOptOut(!1),
-        globalThis.addEventListener("dydx:track", function (e) {
-          var t = e.detail.eventType,
-            d = e.detail.eventData;
-          globalThis.amplitude.track(t, d);
-        }),
-        globalThis.addEventListener("dydx:identify", function (e) {
-          var t = e.detail.property,
-            d = e.detail.propertyValue;
-          if ("userId" === t) globalThis.amplitude.setUserId(d);
-          else {
-            var i = new globalThis.amplitude.Identify();
-            i.set(t, d), globalThis.amplitude.identify(i);
-          }
-        }),
-        console.log("Amplitude enabled."));
+      if (!e) return;
+
+      // Enrichment plugin to add 'frontend' to ALL events (including automatic ones)
+      var enrichFrontendPlugin = {
+        name: 'enrich-frontend-plugin',
+        type: 'enrichment',
+        setup: function() { return undefined; },
+        execute: function(event) {
+          event.event_properties = event.event_properties || {};
+          event.event_properties.frontend = 'bonk';
+          return event;
+        }
+      };
+
+      // add plugin BEFORE init
+      globalThis.amplitude.add(enrichFrontendPlugin);
+
+      // now initialize amplitude
+      globalThis.amplitude.init(e${
+        AMPLITUDE_SERVER_URL
+          ? `, undefined, {
+            serverUrl: "${AMPLITUDE_SERVER_URL}",
+            serverZone: "${AMPLITUDE_SERVER_ZONE}"
+          }`
+          : ''
+      });
+      
+      globalThis.amplitude.setOptOut(!1);
+
+      globalThis.addEventListener("dydx:track", function (e) {
+        var t = e.detail.eventType,
+          d = e.detail.eventData;
+        globalThis.amplitude.track(t, d);
+      });
+
+      globalThis.addEventListener("dydx:identify", function (e) {
+        var t = e.detail.property,
+          d = e.detail.propertyValue;
+        if ("userId" === t) globalThis.amplitude.setUserId(d);
+        else {
+          var i = new globalThis.amplitude.Identify();
+          i.set(t, d), globalThis.amplitude.identify(i);
+        }
+      });
+      
+      console.log("Amplitude enabled.");
     })();
   </script>`;
 
