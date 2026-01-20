@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 
 const AMPLITUDE_API_KEY = process.env.AMPLITUDE_API_KEY;
 const AMPLITUDE_SERVER_URL = process.env.AMPLITUDE_SERVER_URL;
-const AMPLITUDE_SERVER_ZONE = process.env.AMPLITUDE_SERVER_ZONE || 'US';
+const AMPLITUDE_SERVER_ZONE = process.env.AMPLITUDE_SERVER_ZONE ?? 'US';
 
 const currentPath = fileURLToPath(import.meta.url);
 const projectRoot = path.dirname(currentPath);
