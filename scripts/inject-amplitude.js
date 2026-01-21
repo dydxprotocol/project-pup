@@ -54,7 +54,7 @@ async function inject(fileName) {
         AMPLITUDE_SERVER_URL
           ? `, undefined, {
             serverUrl: "${AMPLITUDE_SERVER_URL}",
-            serverZone: "${AMPLITUDE_SERVER_ZONE}"
+            serverZone: "${AMPLITUDE_SERVER_ZONE}",
           }`
           : ''
       });
