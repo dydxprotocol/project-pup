@@ -35,19 +35,19 @@ async function inject(fileName) {
       if (!e) return;
 
       // Enrichment plugin to add 'frontend' to ALL events (including automatic ones)
-      var enrichFrontendPlugin = {
-        name: 'enrich-frontend-plugin',
-        type: 'enrichment',
-        setup: function() { return undefined; },
-        execute: function(event) {
-          event.event_properties = event.event_properties || {};
-          event.event_properties.frontend = 'bonk';
+      var appendBonkPlugin = {
+        name: 'append-bonk-plugin',
+        execute: async function(event) {
+          event.event_properties = {
+            ...event.event_properties,
+            frontend: 'bonk',
+          };
           return event;
         }
       };
 
       // add plugin BEFORE init
-      globalThis.amplitude.add(enrichFrontendPlugin);
+      globalThis.amplitude.add(appendBonkPlugin());
 
       // now initialize amplitude
       globalThis.amplitude.init(e${
