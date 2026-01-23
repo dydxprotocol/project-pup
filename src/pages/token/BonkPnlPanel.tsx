@@ -24,7 +24,19 @@ export enum BonkPnlTableColumns {
   Rank = 'Rank',
   Trader = 'Trader',
   PNL = 'PNL',
+  Rewards = 'Estimated Rewards',
 }
+
+export const getEstimatedRewards = (position: number | undefined) => {
+  if (!position) return 0;
+  if (position === 1) return 25000;
+  if (position === 2) return 15000;
+  if (position === 3) return 10000;
+  if (position === 4 || position === 5) return 5000;
+  if (position >= 6 || position <= 10) return 4000;
+  if (position >= 11 || position <= 20) return 2000;
+  return 0;
+};
 
 export const BonkPnlPanel = () => {
   const stringGetter = useStringGetter();
@@ -256,6 +268,25 @@ const getBonkPnlTableColumnDef = ({
             value={pnl}
           />
         ),
+      },
+      [BonkPnlTableColumns.Rewards]: {
+        columnKey: BonkPnlTableColumns.Rewards,
+        getCellValue: (row) => row.position,
+        label: (
+          <div tw="py-0.375 text-base font-medium text-color-text-0">
+            {stringGetter({ key: STRING_KEYS.ESTIMATED_REWARDS })}
+          </div>
+        ),
+        renderCell: ({ position }) => {
+          return (
+            <Output
+              tw="text-small font-medium"
+              type={OutputType.Fiat}
+              fractionDigits={0}
+              value={getEstimatedRewards(position)}
+            />
+          );
+        },
       },
     } satisfies Record<BonkPnlTableColumns, ColumnDef<BonkPnlItem>>
   )[key],

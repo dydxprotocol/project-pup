@@ -27,6 +27,7 @@ import { TermsOfUseLink } from '@/components/TermsOfUseLink';
 
 import { orEmptyObj } from '@/lib/typeUtils';
 
+import { BonkIncentivesPanel } from './BonkIncentivesPanel';
 import { BonkPnlPanel } from './BonkPnlPanel';
 import { CompetitionIncentivesPanel } from './CompetitionIncentivesPanel';
 import { CompetitionLeaderboardPanel } from './CompetitionLeaderboardPanel';
@@ -84,6 +85,7 @@ const RewardsPage = () => {
           {
             content: (
               <div tw="flexColumn gap-1.5">
+                <BonkIncentivesPanel />
                 <BonkPnlPanel />
               </div>
             ),
