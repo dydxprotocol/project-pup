@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { STRING_KEYS, StringGetterFunction } from '@/constants/localization';
 
 import { BonkPnlItem, useBonkPnlDistribution } from '@/hooks/rewards/hooks';
+import { positionToBonkRewards } from '@/hooks/rewards/util';
 import { useAccounts } from '@/hooks/useAccounts';
 import { useStringGetter } from '@/hooks/useStringGetter';
 
@@ -26,17 +27,6 @@ export enum BonkPnlTableColumns {
   PNL = 'PNL',
   Rewards = 'Estimated Rewards',
 }
-
-export const getEstimatedRewards = (position: number | undefined) => {
-  if (!position) return 0;
-  if (position === 1) return 25000;
-  if (position === 2) return 15000;
-  if (position === 3) return 10000;
-  if (position === 4 || position === 5) return 5000;
-  if (position >= 6 || position <= 10) return 4000;
-  if (position >= 11 || position <= 20) return 2000;
-  return 0;
-};
 
 export const BonkPnlPanel = () => {
   const stringGetter = useStringGetter();
@@ -139,50 +129,6 @@ export const BonkPnlPanel = () => {
   );
 };
 
-const $Panel = styled(Panel)`
-  --panel-content-paddingY: 1.5rem;
-  --panel-content-paddingX: 1.5rem;
-`;
-
-const $Table = styled(Table)`
-  --tableCell-padding: 0.25rem;
-  font: var(--font-mini-book);
-  --stickyArea-background: transparent;
-
-  table {
-    --stickyArea-background: transparent;
-  }
-
-  thead,
-  tbody {
-    --stickyArea-background: transparent;
-    tr {
-      td:first-of-type,
-      th:first-of-type {
-        --tableCell-padding: 0.5rem 0.25rem 0.5rem 1rem;
-      }
-      td:last-of-type,
-      th:last-of-type {
-        --tableCell-padding: 0.5rem 1rem 0.5rem 0.25rem;
-      }
-    }
-  }
-
-  tbody {
-    font: var(--font-small-book);
-  }
-
-  tfoot {
-    --stickyArea-background: transparent;
-    --tableCell-padding: 0.5rem 1rem 0.5rem 1rem;
-  }
-
-  min-width: 1px;
-  tbody {
-    font: var(--font-small-book);
-  }
-` as typeof Table;
-
 const getTraderLink = (address: string) => {
   return `https://community.chaoslabs.xyz/dydx-v4/risk/accounts/${address}/subAccount/0/overview`;
 };
@@ -283,7 +229,7 @@ const getBonkPnlTableColumnDef = ({
               tw="text-small font-medium"
               type={OutputType.Fiat}
               fractionDigits={0}
-              value={getEstimatedRewards(position)}
+              value={positionToBonkRewards(position)}
             />
           );
         },
@@ -291,3 +237,47 @@ const getBonkPnlTableColumnDef = ({
     } satisfies Record<BonkPnlTableColumns, ColumnDef<BonkPnlItem>>
   )[key],
 });
+
+const $Panel = styled(Panel)`
+  --panel-content-paddingY: 1.5rem;
+  --panel-content-paddingX: 1.5rem;
+`;
+
+const $Table = styled(Table)`
+  --tableCell-padding: 0.25rem;
+  font: var(--font-mini-book);
+  --stickyArea-background: transparent;
+
+  table {
+    --stickyArea-background: transparent;
+  }
+
+  thead,
+  tbody {
+    --stickyArea-background: transparent;
+    tr {
+      td:first-of-type,
+      th:first-of-type {
+        --tableCell-padding: 0.5rem 0.25rem 0.5rem 1rem;
+      }
+      td:last-of-type,
+      th:last-of-type {
+        --tableCell-padding: 0.5rem 1rem 0.5rem 0.25rem;
+      }
+    }
+  }
+
+  tbody {
+    font: var(--font-small-book);
+  }
+
+  tfoot {
+    --stickyArea-background: transparent;
+    --tableCell-padding: 0.5rem 1rem 0.5rem 1rem;
+  }
+
+  min-width: 1px;
+  tbody {
+    font: var(--font-small-book);
+  }
+` as typeof Table;

@@ -23,6 +23,17 @@ export function feesToEstimatedDollarRewards(totalFees?: number): number {
   return totalFees * CURRENT_SURGE_REWARDS_DETAILS.rebateFraction;
 }
 
+export function positionToBonkRewards(position: number | undefined) {
+  if (!position) return 0;
+  if (position === 1) return 25000;
+  if (position === 2) return 15000;
+  if (position === 3) return 10000;
+  if (position === 4 || position === 5) return 5000;
+  if (position >= 6 || position <= 10) return 4000;
+  if (position >= 11 || position <= 20) return 2000;
+  return 0;
+}
+
 export const CURRENT_SURGE_REWARDS_DETAILS = {
   season: 10,
   rewardAmount: '',

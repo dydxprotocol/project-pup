@@ -12,7 +12,7 @@ import {
   useBonkPnlDistribution,
   useFeeLeaderboard,
 } from '@/hooks/rewards/hooks';
-import { CURRENT_SURGE_REWARDS_DETAILS } from '@/hooks/rewards/util';
+import { CURRENT_SURGE_REWARDS_DETAILS, positionToBonkRewards } from '@/hooks/rewards/util';
 import { useAccounts } from '@/hooks/useAccounts';
 import { useNow } from '@/hooks/useNow';
 // import { useStatsigGateValue } from '@/hooks/useStatsig';
@@ -26,7 +26,6 @@ import { Output, OutputType } from '@/components/Output';
 import { Panel } from '@/components/Panel';
 import { SuccessTag, TagSize } from '@/components/Tag';
 import { WithTooltip } from '@/components/WithTooltip';
-import { getEstimatedBonkRewards } from '@/pages/token/BonkPnlPanel';
 
 import { useAppDispatch, useAppSelector } from '@/state/appTypes';
 import { markLaunchIncentivesSeen } from '@/state/appUiConfigs';
@@ -124,7 +123,7 @@ const EstimatedMonthlyRewards = () => {
     (item: { address: string | undefined }) => item.address === dydxAddress
   )?.position;
 
-  const userBonkRewards = getEstimatedBonkRewards(userPosition);
+  const userBonkRewards = positionToBonkRewards(userPosition);
   const userEstimatedRewards = (addressEntry?.estimatedDollarRewards ?? 0) + userBonkRewards;
 
   const isLoading = bonkPnlLoading || feeRewardsLoading || !dydxPrice;
