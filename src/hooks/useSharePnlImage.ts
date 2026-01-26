@@ -9,8 +9,9 @@ import { getOpenPositions } from '@/state/accountSelectors';
 import { useAppSelector } from '@/state/appTypes';
 
 import { Nullable } from '@/lib/typeUtils';
+import { truncateAddress } from '@/lib/wallet';
 
-// import { useEndpointsConfig } from './useEndpointsConfig';
+import { useEndpointsConfig } from './useEndpointsConfig';
 
 export type SharePnlImageParams = {
   marketId: string;
@@ -23,27 +24,20 @@ export type SharePnlImageParams = {
 };
 
 // Helper to convert image URL to base64
-const imageToBase64 = (imageUrl: string) => {
-  let base64 = null;
-
-  const img = new Image();
-  img.crossOrigin = 'anonymous';
-  img.src = imageUrl;
-  img.onload = () => {
-    const canvas = document.createElement('canvas');
-    canvas.width = img.width;
-    canvas.height = img.height;
-    const ctx = canvas.getContext('2d');
-    ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
-    base64 = canvas.toDataURL('image/png');
-  };
-  img.onerror = () => {
-    // eslint-disable-next-line no-console
-    console.error('Failed to load image for base64 conversion:', imageUrl);
-    base64 = null;
-  };
-
-  return base64;
+const imageToBase64 = async (imageUrl: string): Promise<string | null> => {
+  try {
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+    return await new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = () => resolve(null);
+      reader.readAsDataURL(blob);
+    });
+  } catch (error) {
+    // console.error('Failed to convert image to base64:', error);
+    return null;
+  }
 };
 
 export const useSharePnlImage = ({
@@ -55,9 +49,7 @@ export const useSharePnlImage = ({
   unrealizedPnl,
   type = 'open',
 }: SharePnlImageParams) => {
-  // const { pnlImageApi } = useEndpointsConfig();
-  const pnlImageApi = 'https://image-generator.bonk.trade/generate-trade-card-web';
-  // 'https://pp-image-generator-bonk-ab5fd4e66c9b.herokuapp.com/generate-trade-card-web';
+  const { pnlImageApi } = useEndpointsConfig();
 
   // Get user wallet address for username
   const { dydxAddress } = useAccounts();
@@ -65,26 +57,26 @@ export const useSharePnlImage = ({
   // Get full position data from state
   const openPositions = useAppSelector(getOpenPositions);
   const position = openPositions?.find((p) => p.market === marketId);
-  const userImage = imageToBase64('/hedgie-profile.png');
 
   const queryFn = async (): Promise<Blob | undefined> => {
-    // if (!pnlImageApi || !dydxAddress) {
     if (!dydxAddress) {
       return undefined;
     }
 
+    const userImage = await imageToBase64('/hedgie-profile.png');
+
     // Build the request body matching the API's zod schema
     const requestBody = {
+      brand: 'bonk',
       ticker: marketId,
       type,
       leverage: leverage ?? 0,
-      username: dydxAddress,
+      username: truncateAddress(dydxAddress),
       isLong: side === IndexerPositionSide.LONG,
       isCross: position?.marginMode === 'CROSS',
-
       // Optional fields - include if available
       size: position?.unsignedSize.toNumber(),
-      userImage,
+      userImage: userImage ?? undefined,
       pnl: position?.realizedPnl.toNumber(),
       uPnl: unrealizedPnl ?? undefined,
       pnlPercentage: position?.updatedUnrealizedPnlPercent?.toNumber(),
