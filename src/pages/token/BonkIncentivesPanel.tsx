@@ -26,11 +26,10 @@ import { Output, OutputType } from '@/components/Output';
 import { Panel } from '@/components/Panel';
 import { SuccessTag, TagSize } from '@/components/Tag';
 import { WithTooltip } from '@/components/WithTooltip';
+import { getEstimatedBonkRewards } from '@/pages/token/BonkPnlPanel';
 
 import { useAppDispatch, useAppSelector } from '@/state/appTypes';
 import { markLaunchIncentivesSeen } from '@/state/appUiConfigs';
-
-import { getEstimatedBonkRewards } from './BonkPnlPanel';
 
 export const BonkIncentivesPanel = () => {
   const dispatch = useAppDispatch();
