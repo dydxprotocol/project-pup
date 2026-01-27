@@ -34,7 +34,6 @@ import { CompetitionLeaderboardPanel } from './CompetitionLeaderboardPanel';
 import { GeoblockedPanel } from './GeoblockedPanel';
 import { LaunchIncentivesPanel } from './LaunchIncentivesPanel';
 import { RewardsHelpPanel } from './RewardsHelpPanel';
-import { RewardsLeaderboardPanel } from './RewardsLeaderboardPanel';
 import { StakingRewardPanel } from './StakingRewardPanel';
 import { SwapAndStakingPanel } from './SwapAndStakingPanel';
 import { UnbondingPanels } from './UnbondingPanels';
@@ -89,21 +88,11 @@ const RewardsPage = () => {
                 <BonkPnlPanel />
               </div>
             ),
-            label: 'Bonk PNL',
+            label: stringGetter({ key: STRING_KEYS.BONKUARY }),
             value: Tab.BonkPnl,
           },
         ]
       : []),
-    {
-      content: (
-        <div tw="flexColumn gap-1.5">
-          <LaunchIncentivesPanel />
-          <RewardsLeaderboardPanel />
-        </div>
-      ),
-      label: stringGetter({ key: STRING_KEYS.REWARDS }),
-      value: Tab.Rewards,
-    },
     {
       content: (
         <div tw="flexColumn gap-1.5">

@@ -12,10 +12,9 @@ import {
   useBonkPnlDistribution,
   useFeeLeaderboard,
 } from '@/hooks/rewards/hooks';
-import { CURRENT_SURGE_REWARDS_DETAILS, positionToBonkRewards } from '@/hooks/rewards/util';
+import { CURRENT_BONK_REWARDS_DETAILS, positionToBonkRewards } from '@/hooks/rewards/util';
 import { useAccounts } from '@/hooks/useAccounts';
 import { useNow } from '@/hooks/useNow';
-// import { useStatsigGateValue } from '@/hooks/useStatsig';
 import { useStringGetter } from '@/hooks/useStringGetter';
 
 import { layoutMixins } from '@/styles/layoutMixins';
@@ -50,18 +49,8 @@ const BonkIncentivesRewardsPanel = () => {
           <div tw="flex flex-col gap-0.5">
             <div tw="flex items-center gap-0.5">
               <div tw="font-medium-bold">
-                {/* TODO: add localization for Bonk Incentives panel */}
-                {/* <span tw="font-bold text-color-accent">
-                  {stringGetter({ key: STRING_KEYS.SURGE })}:
-                </span>{' '} */}
                 <span tw="font-bold">
-                  BONKuary PnL Open
-                  {/* {stringGetter({
-                    key: STRING_KEYS.SURGE_HEADLING_DEC_2025,
-                    params: {
-                      REBATE_PERCENT: CURRENT_SURGE_REWARDS_DETAILS.rebatePercent,
-                    },
-                  })} */}
+                  {stringGetter({ key: STRING_KEYS.BONK_REWARDS_HEADLINE })}
                 </span>
               </div>
               <SuccessTag size={TagSize.Medium}>
@@ -70,30 +59,28 @@ const BonkIncentivesRewardsPanel = () => {
             </div>
             <span>
               <span tw="text-color-text-0">
-                The year of the Bull!{' '}
-                {/* {stringGetter({
-                  key: STRING_KEYS.SURGE_BODY_DEC_2025,
-                  params: {
-                    REBATE_PERCENT: CURRENT_SURGE_REWARDS_DETAILS.rebatePercent,
-                  },
-                })}{' '} */}
-                <Link href="https://www.dydx.xyz/surge" isInline>
-                  {stringGetter({ key: STRING_KEYS.LEARN_MORE })}
-                </Link>
+                {stringGetter({ key: STRING_KEYS.BONK_REWARDS_BODY })}
               </span>
             </span>
+
+            <div>
+              <p tw="font-semibold">{stringGetter({ key: STRING_KEYS.BONK_REWARDS_RULES })}</p>
+              <ul tw="list-outside list-disc pl-1.5 text-color-text-0">
+                <li>{stringGetter({ key: STRING_KEYS.BONK_REWARDS_RULE_1 })}</li>
+                <li>{stringGetter({ key: STRING_KEYS.BONK_REWARDS_RULE_2 })}</li>
+                <li>{stringGetter({ key: STRING_KEYS.BONK_REWARDS_RULE_3 })}</li>
+              </ul>
+            </div>
+
+            <span tw="text-color-text-0">
+              {stringGetter({ key: STRING_KEYS.BONK_REWARDS_BODY_2 })}
+            </span>
           </div>
+
           <div tw="flex items-center gap-0.25 self-start rounded-3 bg-color-layer-1 px-0.875 py-0.5">
             <Icon iconName={IconName.Clock} size="1.25rem" tw="text-color-accent" />
-            <div tw="flex gap-0.375">
-              <div tw="text-color-accent">
-                {/* {stringGetter({
-                  key: STRING_KEYS.SURGE_COUNTDOWN,
-                  params: { SURGE_SEASON: CURRENT_SURGE_REWARDS_DETAILS.season },
-                })}
-                : */}
-              </div>
-              <MinutesCountdown endTime={CURRENT_SURGE_REWARDS_DETAILS.endTime} />
+            <div tw="flex gap-0.375 px-0.375 leading-none">
+              <MinutesCountdown endTime={CURRENT_BONK_REWARDS_DETAILS.endTime} />
             </div>
           </div>
         </div>
