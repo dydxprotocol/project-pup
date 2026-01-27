@@ -1,6 +1,7 @@
 import { logBonsaiError } from '@/bonsai/logs';
 import { useQuery } from '@tanstack/react-query';
 
+import { timeUnits } from '@/constants/time';
 import { IndexerPositionSide } from '@/types/indexer/indexerApiGen';
 
 import { useAccounts } from '@/hooks/useAccounts';
@@ -21,23 +22,6 @@ export type SharePnlImageParams = {
   entryPrice: Nullable<number>;
   unrealizedPnl: Nullable<number>;
   type?: 'open' | 'closed' | 'liquidated' | undefined;
-};
-
-// Helper to convert image URL to base64
-const imageToBase64 = async (imageUrl: string): Promise<string | null> => {
-  try {
-    const response = await fetch(imageUrl);
-    const blob = await response.blob();
-    return await new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result as string);
-      reader.onerror = () => resolve(null);
-      reader.readAsDataURL(blob);
-    });
-  } catch (error) {
-    // console.error('Failed to convert image to base64:', error);
-    return null;
-  }
 };
 
 export const useSharePnlImage = ({
@@ -63,8 +47,6 @@ export const useSharePnlImage = ({
       return undefined;
     }
 
-    const userImage = await imageToBase64('/hedgie-profile.png');
-
     // Build the request body matching the API's zod schema
     const requestBody = {
       brand: 'bonk',
@@ -76,7 +58,7 @@ export const useSharePnlImage = ({
       isCross: position?.marginMode === 'CROSS',
       // Optional fields - include if available
       size: position?.unsignedSize.toNumber(),
-      userImage: userImage ?? undefined,
+      userImage: 'https://dydx.trade/hedgie-profile.png',
       pnl: position?.realizedPnl.toNumber(),
       uPnl: unrealizedPnl ?? undefined,
       pnlPercentage: position?.updatedUnrealizedPnlPercent?.toNumber(),
@@ -120,9 +102,9 @@ export const useSharePnlImage = ({
     enabled: Boolean(dydxAddress),
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
-    staleTime: 1000 * 60 * 2, // 2 minutes
+    staleTime: 2 * timeUnits.minute, // 2 minutes
     retry: 2,
-    retryDelay: 1000,
+    retryDelay: 1 * timeUnits.second,
     retryOnMount: true,
   });
 };
