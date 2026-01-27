@@ -20,7 +20,6 @@ import { useStringGetter } from '@/hooks/useStringGetter';
 import { layoutMixins } from '@/styles/layoutMixins';
 
 import { Icon, IconName } from '@/components/Icon';
-import { Link } from '@/components/Link';
 import { Output, OutputType } from '@/components/Output';
 import { Panel } from '@/components/Panel';
 import { SuccessTag, TagSize } from '@/components/Tag';
@@ -146,18 +145,6 @@ const EstimatedMonthlyRewards = () => {
           </$Points>
         </div>
         <img src="/rewards-stars.svg" alt="reward-stars" tw="h-auto w-2 self-start" />
-      </div>
-
-      <div tw="flex items-center gap-[0.5em] self-end font-tiny-medium">
-        {stringGetter({ key: STRING_KEYS.POWERED_BY_ALL_CAPS })}{' '}
-        <Link
-          href="https://cryptolearningclub.org/"
-          isAccent
-          tw="font-small-bold"
-          title="Crypto Learning Club"
-        >
-          CLC
-        </Link>
       </div>
     </div>
   );

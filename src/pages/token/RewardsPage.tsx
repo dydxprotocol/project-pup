@@ -88,7 +88,7 @@ const RewardsPage = () => {
                 <BonkPnlPanel />
               </div>
             ),
-            label: stringGetter({ key: STRING_KEYS.BONKUARY }),
+            label: 'BONKuary',
             value: Tab.BonkPnl,
           },
         ]
