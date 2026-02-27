@@ -14,8 +14,8 @@ import {
 } from '@/hooks/rewards/hooks';
 import {
   CURRENT_BONK_REWARDS_DETAILS,
-  getMonthName,
   positionToBonkRewards,
+  simpleDateString,
 } from '@/hooks/rewards/util';
 import { useAccounts } from '@/hooks/useAccounts';
 import { useNow } from '@/hooks/useNow';
@@ -26,7 +26,7 @@ import { layoutMixins } from '@/styles/layoutMixins';
 import { Icon, IconName } from '@/components/Icon';
 import { Output, OutputType } from '@/components/Output';
 import { Panel } from '@/components/Panel';
-import { SuccessTag, TagSize } from '@/components/Tag';
+import { PrivateTag, SuccessTag, TagSize } from '@/components/Tag';
 import { WithTooltip } from '@/components/WithTooltip';
 
 import { useAppDispatch, useAppSelector } from '@/state/appTypes';
@@ -48,12 +48,14 @@ const BonkIncentivesRewardsPanel = () => {
   const { rewardAmount, topPrizeAmount, startTime, endTime, titleStringKey, leaderboardSize } =
     CURRENT_BONK_REWARDS_DETAILS;
 
+  const isActive = new Date(startTime) <= new Date() && new Date(endTime) >= new Date();
+
   return (
     <$Panel>
       <div tw="flex gap-3 pb-0.25 pt-0.5">
         <div tw="flex flex-1 flex-col gap-1.5">
           <div tw="flex flex-col gap-0.5">
-            <div tw="flex items-center gap-0.5">
+            <div tw="flex flex-wrap items-center gap-0.5 gap-y-0.25">
               <div tw="font-medium-bold">
                 <span tw="font-bold">
                   {stringGetter({
@@ -64,15 +66,24 @@ const BonkIncentivesRewardsPanel = () => {
                   })}
                 </span>
               </div>
-              <SuccessTag size={TagSize.Medium}>
-                {stringGetter({ key: STRING_KEYS.ACTIVE })}
-              </SuccessTag>
+              {isActive ? (
+                <SuccessTag size={TagSize.Medium}>
+                  {stringGetter({ key: STRING_KEYS.ACTIVE })}
+                </SuccessTag>
+              ) : (
+                <PrivateTag size={TagSize.Medium}>
+                  {stringGetter({ key: STRING_KEYS.INACTIVE })}
+                </PrivateTag>
+              )}
             </div>
             <span>
               <span tw="text-color-text-0">
                 {stringGetter({
                   key: STRING_KEYS.BONK_PNL_REWARDS_BODY,
-                  params: { REWARD_AMOUNT: rewardAmount },
+                  params: {
+                    REWARD_AMOUNT: rewardAmount,
+                    MONTH: simpleDateString(startTime, { month: 'long' }),
+                  },
                 })}
               </span>
             </span>
@@ -84,7 +95,7 @@ const BonkIncentivesRewardsPanel = () => {
                   {stringGetter({
                     key: STRING_KEYS.BONK_PNL_REWARDS_RULE_1,
                     params: {
-                      MONTH: getMonthName(startTime, { month: 'long' }),
+                      MONTH: simpleDateString(startTime, { month: 'long' }),
                     },
                   })}
                 </li>
@@ -92,8 +103,8 @@ const BonkIncentivesRewardsPanel = () => {
                   {stringGetter({
                     key: STRING_KEYS.BONK_PNL_REWARDS_RULE_2,
                     params: {
-                      MONTH_FIRST: `${getMonthName(startTime, { month: 'short', day: 'numeric' })}`,
-                      MONTH_LAST: `${getMonthName(endTime, { month: 'short', day: 'numeric' })}`,
+                      MONTH_FIRST: `${simpleDateString(startTime, { month: 'short', day: 'numeric' })}`,
+                      MONTH_LAST: `${simpleDateString(endTime, { month: 'short', day: 'numeric' })}`,
                     },
                   })}
                 </li>

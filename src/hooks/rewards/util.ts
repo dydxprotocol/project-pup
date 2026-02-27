@@ -41,7 +41,8 @@ type BonkRewardsDetails = {
   leaderboardSize: number;
 };
 
-export const getMonthName = (
+// returns string derived from current time or timestamp in format: Mar | March | March 1
+export const simpleDateString = (
   timestamp?: string,
   options?: {
     month?: 'long' | 'short' | undefined;
@@ -49,7 +50,11 @@ export const getMonthName = (
   }
 ) => {
   const date = timestamp ? new Date(timestamp) : new Date();
-  return date.toLocaleString('en-US', { ...options, timeZone: 'UTC' });
+  return date.toLocaleString('en-US', {
+    ...options,
+    month: options?.month ?? 'long',
+    timeZone: 'UTC',
+  });
 };
 
 const februaryBonkRewards = [
@@ -100,7 +105,7 @@ const lastBonkRewardsMonth = bonkRewardsMonths[
 
 export const CURRENT_BONK_REWARDS_DETAILS: BonkRewardsDetails =
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  BONK_REWARDS_MAP[getMonthName() as keyof typeof BONK_REWARDS_MAP] ??
+  BONK_REWARDS_MAP[simpleDateString() as keyof typeof BONK_REWARDS_MAP] ??
   BONK_REWARDS_MAP[lastBonkRewardsMonth];
 
 export function positionToBonkRewards(position: number | undefined) {
