@@ -72,7 +72,7 @@ const marchBonkRewards = [
   { positionRange: [3, 3], reward: 5000 },
   { positionRange: [4, 5], reward: 2500 },
   { positionRange: [6, 10], reward: 2000 },
-  { positionRange: [11, 15], reward: 1500 },
+  { positionRange: [11, 20], reward: 1000 },
 ];
 
 const BONK_REWARDS_MAP = {
