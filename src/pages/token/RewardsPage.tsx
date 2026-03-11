@@ -58,9 +58,7 @@ const RewardsPage = () => {
   const enableLiquidationRebates = useEnableLiquidationRebates();
   const { usdcDenom } = useTokenConfigs();
 
-  const [value, setValue] = useState(
-    Tab.BonkPnl
-  );
+  const [value, setValue] = useState(Tab.BonkPnl);
 
   const { totalRewards } = orEmptyObj(BonsaiHooks.useStakingRewards().data);
 
