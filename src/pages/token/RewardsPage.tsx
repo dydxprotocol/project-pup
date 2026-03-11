@@ -29,6 +29,7 @@ import { TermsOfUseLink } from '@/components/TermsOfUseLink';
 import { orEmptyObj } from '@/lib/typeUtils';
 
 import { BonkIncentivesPanel } from './BonkIncentivesPanel';
+import { BonkPnlLeaderboardPanel } from './BonkPnlLeaderboardPanel';
 import { BonkPnlPanel } from './BonkPnlPanel';
 import { CompetitionLeaderboardPanel } from './CompetitionLeaderboardPanel';
 import { GeoblockedPanel } from './GeoblockedPanel';
@@ -42,6 +43,7 @@ import { SwapAndStakingPanel } from './SwapAndStakingPanel';
 import { UnbondingPanels } from './UnbondingPanels';
 
 enum Tab {
+  Leaderboard = 'Leaderboard',
   BonkPnl = 'BonkPnl',
   Rewards = 'Rewards',
   LiquidationRebates = 'LiquidationRebates',
@@ -83,6 +85,15 @@ const RewardsPage = () => {
   );
 
   const tabs = [
+    {
+      content: (
+        <div tw="flexColumn gap-1.5">
+          <BonkPnlLeaderboardPanel />
+        </div>
+      ),
+      label: stringGetter({ key: STRING_KEYS.COMPETITION_LEADERBOARD_TITLE }),
+      value: Tab.Leaderboard,
+    },
     {
       content: (
         <div tw="flexColumn gap-1.5">
