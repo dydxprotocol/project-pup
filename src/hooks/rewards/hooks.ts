@@ -65,9 +65,9 @@ export type BonkPnlItem = {
 export type BonkPnlLeaderboardItem = {
   address: string;
   pnl: number;
-  volume: number;
   position: number;
-  markets: MarketInfo['assetId'][];
+  tickers: MarketInfo['assetId'][];
+  volume: number;
 };
 
 export function useFeeLeaderboard({ address }: { address?: string }) {
@@ -156,43 +156,10 @@ export function useBonkPnlDistribution() {
 }
 
 async function getBonkPnlLeaderboard() {
-  // const res = await fetch(
-  //   'https://pp-external-api-ffb2ad95ef03.herokuapp.com/api/dydx-bonk-pnl-leaderboard?perPage=1000'
-  // );
-  // const parsedRes = await res.json();
-  // TODO: remove this mock data once the endpoint above is implemented
-  const parsedRes = {
-    data: [
-      {
-        address: '0x1234567890123456789012345678901234567890',
-        pnl: 100000,
-        volume: 100,
-        position: 1,
-        markets: ['BTC-USDC', 'ETH-USDC', 'BONK-USDC', 'SOL-USDC'],
-      },
-      {
-        address: '0x1234567890123456789012345678901234567890',
-        pnl: 10000,
-        volume: 100,
-        position: 2,
-        markets: ['BTC-USDC', 'BONK-USDC'],
-      },
-      {
-        address: '0x1234567890123456789012345678901234567890',
-        pnl: 1000,
-        volume: 100,
-        position: 3,
-        markets: ['BTC-USDC', 'ETH-USDC'],
-      },
-      {
-        address: 'dydx136v96yl20cud87yc3fv8kn3q3gvwhejume6ew4',
-        pnl: 1000,
-        volume: 100,
-        position: 420,
-        markets: ['BTC-USDC', 'BONK-USDC'],
-      },
-    ],
-  };
+  const res = await fetch(
+    'https://pp-external-api-ffb2ad95ef03.herokuapp.com/api/dydx-bonk-pnl-all-time?perPage=2000'
+  );
+  const parsedRes = await res.json();
   return parsedRes.data as BonkPnlLeaderboardItem[];
 }
 

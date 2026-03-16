@@ -1,5 +1,7 @@
 import { useCallback } from 'react';
 
+import { BonsaiCore } from '@/bonsai/ontology';
+import { AllAssetData } from '@/bonsai/types/summaryTypes';
 import styled from 'styled-components';
 
 import { STRING_KEYS, StringGetterFunction } from '@/constants/localization';
@@ -18,6 +20,8 @@ import { Output, OutputType } from '@/components/Output';
 import { Panel } from '@/components/Panel';
 import { ColumnDef, Table } from '@/components/Table';
 
+import { useAppSelector } from '@/state/appTypes';
+
 import { exportCSV } from '@/lib/csv';
 import { truncateAddress } from '@/lib/wallet';
 
@@ -25,6 +29,7 @@ export enum BonkPnlTableColumns {
   Rank = 'Rank',
   Trader = 'Trader',
   Markets = 'Markets',
+  Volume = 'Volume',
   PNL = 'PNL',
 }
 
@@ -32,6 +37,7 @@ export const BonkPnlLeaderboardPanel = () => {
   const stringGetter = useStringGetter();
   const { data: bonkPnls, isLoading } = useBonkPnlLeaderboard();
   const { dydxAddress } = useAccounts();
+  const allAssets = useAppSelector(BonsaiCore.markets.assets.data);
 
   const getRowKey = useCallback((row: BonkPnlLeaderboardItem) => row.position, []);
 
@@ -40,6 +46,7 @@ export const BonkPnlLeaderboardPanel = () => {
       key,
       stringGetter,
       dydxAddress,
+      allAssets,
     })
   );
 
@@ -57,9 +64,9 @@ export const BonkPnlLeaderboardPanel = () => {
     const csvRows = data.map((item) => ({
       rank: item.position,
       address: item.address,
-      markets: item.markets.join(','),
-      pnl: item.pnl,
+      markets: item.tickers.join(','),
       volume: item.volume,
+      pnl: item.pnl,
     }));
 
     exportCSV(csvRows, {
@@ -78,6 +85,10 @@ export const BonkPnlLeaderboardPanel = () => {
           displayLabel: stringGetter({ key: STRING_KEYS.MARKETS }),
         },
         {
+          key: 'volumne',
+          displayLabel: stringGetter({ key: STRING_KEYS.VOLUME }),
+        },
+        {
           key: 'pnl',
           displayLabel: stringGetter({ key: STRING_KEYS.PNL }),
         },
@@ -89,10 +100,7 @@ export const BonkPnlLeaderboardPanel = () => {
     <$Panel>
       <div tw="flex flex-col gap-1">
         <div tw="flex items-center justify-between">
-          <div tw="font-medium-bold">
-            Top Traders
-            {/* {stringGetter({ key: STRING_KEYS.TOP_TRADERS })} */}
-          </div>
+          <div tw="font-medium-bold">{stringGetter({ key: STRING_KEYS.BONK_TOP_TRADERS })}</div>
           <button
             onClick={onDownload}
             type="button"
@@ -132,7 +140,7 @@ export const BonkPnlLeaderboardPanel = () => {
               },
             })}
             selectionBehavior="replace"
-            initialPageSize={10}
+            initialPageSize={20}
             withScrollSnapColumns
             withScrollSnapRows
           />
@@ -150,10 +158,12 @@ const getBonkPnlTableColumnDef = ({
   key,
   stringGetter,
   dydxAddress,
+  allAssets,
 }: {
   key: BonkPnlTableColumns;
   stringGetter: StringGetterFunction;
   dydxAddress?: string;
+  allAssets: AllAssetData | undefined;
 }): ColumnDef<BonkPnlLeaderboardItem> => ({
   ...(
     {
@@ -165,16 +175,16 @@ const getBonkPnlTableColumnDef = ({
             {stringGetter({ key: STRING_KEYS.RANK })}
           </div>
         ),
-        renderCell: ({ position, address }) => (
-          <div tw="flex gap-0.5">
+        renderCell: ({ pnl, position, address }) => (
+          <div tw="flex items-center gap-0.5">
             <div tw="flex items-center justify-center rounded-20 border border-solid border-color-border p-0.5">
               <div tw="flex h-0.5 min-w-0.5 items-center justify-center text-small font-medium">
-                {position}
+                {pnl === 0 ? 'Unranked' : position}
               </div>
             </div>
-            {position === 1 && <TrophyIcon tw="size-1.5 text-[#e5c346]" />}
-            {position === 2 && <TrophyIcon tw="size-1.5 text-[#c9c9cb]" />}
-            {position === 3 && <TrophyIcon tw="size-1.5 text-[#c37b3f]" />}
+            {position === 1 && <TrophyIcon tw="size-1 text-[#e5c346]" />}
+            {position === 2 && <TrophyIcon tw="size-1 text-[#c9c9cb]" />}
+            {position === 3 && <TrophyIcon tw="size-1 text-[#c37b3f]" />}
             {address === dydxAddress && (
               <div tw="flex items-center justify-center rounded-20 border border-solid border-color-accent px-0.5">
                 <span tw="text-small font-medium text-color-accent">
@@ -214,35 +224,52 @@ const getBonkPnlTableColumnDef = ({
       [BonkPnlTableColumns.Markets]: {
         columnKey: BonkPnlTableColumns.Markets,
         getCellValue: (row) =>
-          Array.from(new Set(row.markets.flatMap((m) => m.split('-')))).join(','),
+          Array.from(new Set(row.tickers.flatMap((m) => m.split('-')))).join(','),
         label: (
           <div tw="py-0.375 text-base font-medium text-color-text-0">
             {stringGetter({ key: STRING_KEYS.MARKETS })}
           </div>
         ),
-        renderCell: ({ markets }) => {
-          const marketsArray = Array.from(new Set(markets.flatMap((m) => m.split('-'))));
+        renderCell: ({ tickers }) => {
+          const uniqueAssets = Array.from(new Set(tickers.flatMap((t) => t.split('-')))).filter(
+            (t) => t !== 'USD'
+          );
           return (
             <div tw="flex items-center">
-              {marketsArray.slice(0, 4).map((market, index) => (
-                <span
-                  key={market}
-                  tw="-mr-0.5 flex aspect-square h-full w-auto items-center overflow-hidden rounded-full bg-color-layer-1 p-0.125"
-                  style={{ zIndex: 1 + index }}
-                >
-                  <AssetIcon key={market} symbol={market} tw="size-full max-h-1.5 max-w-1.5" />
-                </span>
-              ))}
-              {markets.length >= 4 && (
+              {uniqueAssets.slice(0, 4).map((ticker, index) => {
+                const logoUrl = allAssets?.[ticker]?.logo;
+                return (
+                  <span
+                    key={ticker}
+                    tw="-mr-0.5 flex aspect-square h-1.75 w-1.75 items-center overflow-hidden rounded-full bg-color-layer-1 p-0.125"
+                    style={{ zIndex: 1 + index }}
+                  >
+                    <AssetIcon key={ticker} symbol={ticker} logoUrl={logoUrl} tw="size-full" />
+                  </span>
+                );
+              })}
+              {tickers.length >= 4 && (
                 <div tw="z-10 flex aspect-square items-center justify-center rounded-full bg-color-layer-0 p-0.25">
                   <span tw="w-full text-center text-small font-medium leading-none text-color-text-0">
-                    +{markets.length - 3}
+                    +{tickers.length - 3}
                   </span>
                 </div>
               )}
             </div>
           );
         },
+      },
+      [BonkPnlTableColumns.Volume]: {
+        columnKey: BonkPnlTableColumns.Volume,
+        getCellValue: (row) => row.volume,
+        label: (
+          <div tw="py-0.375 text-base font-medium text-color-text-0">
+            {stringGetter({ key: STRING_KEYS.VOLUME })}
+          </div>
+        ),
+        renderCell: ({ volume }) => (
+          <Output tw="text-small font-medium" type={OutputType.Fiat} value={volume} />
+        ),
       },
       [BonkPnlTableColumns.PNL]: {
         columnKey: BonkPnlTableColumns.PNL,
