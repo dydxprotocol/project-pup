@@ -130,7 +130,7 @@ export const BonkPnlLeaderboardPanel = () => {
               ) : (
                 <div tw="flex flex-col items-center gap-1">
                   <Icon iconName={IconName.OrderPending} tw="text-[3em]" />
-                  No data available
+                  {stringGetter({ key: STRING_KEYS.AFFILIATE_CHART_EMPTY_STATE })}
                 </div>
               )
             }
