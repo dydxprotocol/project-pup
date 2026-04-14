@@ -84,7 +84,7 @@ export const RwaCompetitionPanel = () => {
               <span tw="text-small text-color-text-0">
                 Starting on April 14th, winners of each week can claim rewards and check
                 eligibility{' '}
-                <Link href="https://dydx-unlimited-lp.webflow.io/bonk-trading-competition-claims" isInline>
+                <Link href="https://www.dydx.xyz/bonk-trading-competition-claims" isInline>
                   here
                 </Link>
                 . Rewards are distributed within 30 days of a valid claim and must be claimed
