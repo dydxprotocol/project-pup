@@ -93,7 +93,7 @@ const RewardsPage = () => {
   const daysRemaining = Math.ceil(msRemaining / timeUnits.day);
   const endingSoon = !hasEnded && daysRemaining <= 3;
 
-  const weekLabel = activeWeek ? `Week ${activeWeek.week}: ${activeWeek.name}` : null;
+  const weekLabel = activeWeek ? `Sprint ${activeWeek.week}: ${activeWeek.name}` : null;
 
   const tabs = [
     {
