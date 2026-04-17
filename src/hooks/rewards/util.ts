@@ -142,8 +142,8 @@ export const LIQUIDATION_REBATES_DETAILS = {
 
 export const RWA_COMPETITION_WEEKS = [
   { week: 1, name: 'Gold Rush', startDate: '2026-04-06T00:00:00.000Z', endDate: '2026-04-13T00:00:00.000Z' },
-  { week: 2, name: 'Crude Awakening', startDate: '2026-04-13T00:00:00.000Z', endDate: '2026-04-20T00:00:00.000Z' },
-  { week: 3, name: 'Silver Rush', startDate: '2026-04-20T00:00:00.000Z', endDate: '2026-04-27T00:00:00.000Z' },
+  { week: 2, name: 'Crude Awakening', startDate: '2026-04-13T00:00:00.000Z', endDate: '2026-04-27T00:00:00.000Z' },
+  { week: 3, name: 'Silver Rush', startDate: '2026-04-27T00:00:00.000Z', endDate: '2026-05-04T00:00:00.000Z' },
 ];
 
 const RWA_REWARDS = [
@@ -161,7 +161,7 @@ export const RWA_COMPETITION_DETAILS = {
   topPrizeAmount: '$3,000',
   leaderboardSize: 10,
   startTime: '2026-04-06T00:00:00.000Z',
-  endTime: '2026-04-27T00:00:00.000Z',
+  endTime: '2026-05-04T00:00:00.000Z',
 };
 
 export function getActiveRwaWeek() {

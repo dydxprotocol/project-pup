@@ -68,21 +68,21 @@ export const RwaCompetitionPanel = () => {
               </div>
 
               <span tw="text-color-text-0">
-                Compete for {RWA_COMPETITION_DETAILS.rewardAmount} in prizes across 3 weekly RWA
-                trading sprints. Top 10 traders each week win.
+                Compete for a {RWA_COMPETITION_DETAILS.rewardAmount} prize pool in every RWA
+                trading sprint, awarded to the Top 10 traders.
               </span>
 
               <div>
                 <p tw="font-semibold">Rules</p>
                 <ul tw="list-outside list-disc pl-1.5 text-color-text-0">
-                  <li>Trade the designated RWA market each week using Bonk</li>
+                  <li>Trade the designated RWA market using Bonk</li>
                   <li>PnL is calculated from fully closed positions only</li>
                   <li>Leaderboard updates multiple times daily</li>
                 </ul>
               </div>
 
               <span tw="text-small text-color-text-0">
-                Starting on April 14th, winners of each week can claim rewards and check
+                2 days after each RWA trading sprint, users can claim rewards and check
                 eligibility{' '}
                 <Link href="https://www.dydx.xyz/bonk-trading-competition-claims" isInline>
                   here
