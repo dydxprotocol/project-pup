@@ -32,13 +32,13 @@ import { orEmptyObj } from '@/lib/typeUtils';
 
 import { BonkPnlLeaderboardPanel } from './BonkPnlLeaderboardPanel';
 import { CompetitionLeaderboardPanel } from './CompetitionLeaderboardPanel';
-import { RwaCompetitionPanel } from './RwaCompetitionPanel';
 import { GeoblockedPanel } from './GeoblockedPanel';
 import { LaunchIncentivesPanel } from './LaunchIncentivesPanel';
 import { LiquidationRebatesHeader } from './LiquidationRebatesHeader';
 import { LiquidationRebatesPanel } from './LiquidationRebatesPanel';
 import { RebatesIncetivesPanel } from './RebatesIncetivesPanel';
 import { RewardsHelpPanel } from './RewardsHelpPanel';
+import { RwaCompetitionPanel } from './RwaCompetitionPanel';
 import { StakingRewardPanel } from './StakingRewardPanel';
 import { SwapAndStakingPanel } from './SwapAndStakingPanel';
 import { UnbondingPanels } from './UnbondingPanels';
