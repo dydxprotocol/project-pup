@@ -179,12 +179,12 @@ export const MarketsBanners = ({
       <div tw="z-[1] ml-1 mr-auto flex flex-col items-start">
         <span tw="text-large text-white font-extra-bold">
           <span tw="mr-0.25 rounded-[0.25rem] bg-color-accent px-0.25">
-            {stringGetter({ key: STRING_KEYS.NO_FEE_NOVEMBER_BANNER_TITLE_ACCENT })}
+          {stringGetter({ key: STRING_KEYS.NO_FEE_NOVEMBER_BANNER_TITLE_ACCENT })}
           </span>{' '}
-          {stringGetter({ key: STRING_KEYS.NO_FEE_MARCH_BANNER_TITLE })}
+          {stringGetter({ key: STRING_KEYS.NO_FEE_MAY_BANNER_TITLE })}
         </span>
         <Link isAccent onClick={onClickNoFeeBanner} tw="font-base-medium">
-          {stringGetter({ key: STRING_KEYS.NO_FEE_MARCH_BANNER_CTA })} →
+          {stringGetter({ key: STRING_KEYS.NO_FEE_MAY_BANNER_CTA })} →
         </Link>
       </div>
       <IconButton
