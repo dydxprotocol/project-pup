@@ -25,21 +25,21 @@ import { LoadingSpace } from '@/components/Loading/LoadingSpinner';
 import { Output, OutputType } from '@/components/Output';
 import { Panel } from '@/components/Panel';
 import { ColumnDef, Table } from '@/components/Table';
-import { SuccessTag, PrivateTag, TagSize } from '@/components/Tag';
+import { PrivateTag, SuccessTag, TagSize } from '@/components/Tag';
 
 import { truncateAddress } from '@/lib/wallet';
 
-const PRIZE_TIERS = [
-  { place: '1st', amount: '$3,000' },
-  { place: '2nd', amount: '$2,000' },
-  { place: '3rd', amount: '$1,000' },
-  { place: '4th-5th', amount: '$750' },
-  { place: '6th-10th', amount: '$500' },
-];
+// const PRIZE_TIERS = [
+//   { place: '1st', amount: '$3,000' },
+//   { place: '2nd', amount: '$2,000' },
+//   { place: '3rd', amount: '$1,000' },
+//   { place: '4th-5th', amount: '$750' },
+//   { place: '6th-10th', amount: '$500' },
+// ];
 
 export const RwaCompetitionPanel = () => {
   const activeWeek = getActiveRwaWeek();
-  const { market, week } = useRwaMarketPnl();
+  const { market } = useRwaMarketPnl();
 
   const displayWeek = activeWeek ?? RWA_COMPETITION_WEEKS[RWA_COMPETITION_WEEKS.length - 1]!;
   const competitionStart = new Date(RWA_COMPETITION_DETAILS.startTime);
@@ -68,8 +68,8 @@ export const RwaCompetitionPanel = () => {
               </div>
 
               <span tw="text-color-text-0">
-                Compete for a {RWA_COMPETITION_DETAILS.rewardAmount} prize pool in every RWA
-                trading sprint, awarded to the Top 10 traders.
+                Compete for a {RWA_COMPETITION_DETAILS.rewardAmount} prize pool in every RWA trading
+                sprint, awarded to the Top 10 traders.
               </span>
 
               <div>
@@ -82,13 +82,12 @@ export const RwaCompetitionPanel = () => {
               </div>
 
               <span tw="text-small text-color-text-0">
-                2 days after each RWA trading sprint, users can claim rewards and check
-                eligibility{' '}
+                2 days after each RWA trading sprint, users can claim rewards and check eligibility{' '}
                 <Link href="https://www.dydx.xyz/bonk-trading-competition-claims" isInline>
                   here
                 </Link>
-                . Rewards are distributed within 30 days of a valid claim and must be claimed
-                within 30 days after the trading competition ends.
+                . Rewards are distributed within 30 days of a valid claim and must be claimed within
+                30 days after the trading competition ends.
               </span>
             </div>
 
@@ -122,7 +121,10 @@ const RwaLeaderboardTable = () => {
 
   const userRow = pnlItems?.find((item) => item.address === dydxAddress);
   const data = [
-    ...new Set([...(userRow ? [userRow] : []), ...(pnlItems?.filter((item) => item.pnl !== 0) ?? [])]),
+    ...new Set([
+      ...(userRow ? [userRow] : []),
+      ...(pnlItems?.filter((item) => item.pnl !== 0) ?? []),
+    ]),
   ];
 
   return (
@@ -267,9 +269,7 @@ const getRwaTableColumnDef = ({
       [RwaTableColumns.Prize]: {
         columnKey: RwaTableColumns.Prize,
         getCellValue: (row) => row.position,
-        label: (
-          <div tw="py-0.375 text-base font-medium text-color-text-0">Prize</div>
-        ),
+        label: <div tw="py-0.375 text-base font-medium text-color-text-0">Prize</div>,
         renderCell: ({ position }) => (
           <Output
             tw="text-small font-medium"

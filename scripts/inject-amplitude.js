@@ -35,9 +35,14 @@ async function inject(fileName) {
       if (!e) return;
 
       // Enrichment plugin to add 'frontend' to ALL events (including automatic ones)
-      var appendBonkPlugin = {
-        name: 'append-bonk-plugin',
-        execute: async function(event) {
+      class AppendBonkPlugin {
+        name = 'append-bonk-plugin';
+
+        async setup(config) {
+          return undefined;
+        }
+
+        async execute(event) {
           event.event_properties = {
             ...event.event_properties,
             frontend: 'bonk',
@@ -47,7 +52,7 @@ async function inject(fileName) {
       };
 
       // add plugin BEFORE init
-      globalThis.amplitude.add(appendBonkPlugin());
+      globalThis.amplitude.add(new AppendBonkPlugin());
 
       // now initialize amplitude
       globalThis.amplitude.init(e${
